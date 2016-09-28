@@ -14,14 +14,25 @@ public class PropertyReader extends ReaderTemplate
         control = inControl;
     }
 
+//---------------------------------------------------------------------------
     protected void processLine(String[] fields)
     {
-        // FIRST = property name
-        // SECOND = type -> C or B
-        // THIRD = owner
-        // FOURTH = value
-        // FIFTH = revenue (business only)
-        // SIXTH = wages (business only)
+        Property newProp = null;
+        if ( fields[1].charAt(0) == 'C' )
+            newProp = new Company();
+        else if ( fields[1].charAt(0) == 'B' )
+        {
+            int revenue = Integer.parseInt( fields[4] );
+            int wages = Integer.parseInt( fields[5] );
+            newProp = new BusinessUnit( revenue, wages );
+
+        }
+
+        newProp.setName( fields[0] );
+        newProp.setValue( Integer.parseInt( fields[3] ) );
+        newProp.setOwner( (Company)control.getProperty( fields[2] ) );
+
+        control.setProperty( fields[0], newProp );
     }
 
 //---------------------------------------------------------------------------

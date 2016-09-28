@@ -6,15 +6,15 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES:
 ***************************************************************************/
-import java.lang.Exception;
+import java.io.*;
 
 public class Simulator
 {
     public static void main( String[] args )
     {
         // CLA'S -> PROPERTY_FILE, EVENT_FILE, PLAN_FILE, START_YR, END_YR
-        if ( args.length != 5 )
-            throw new IllegalArgumentException("INVALID CLA");
+        //if ( args.length != 5 )
+        //    throw new IllegalArgumentException("INVALID CLA");
 
         String propertyFile = args[0];
         String eventFile = args[1];
@@ -24,6 +24,17 @@ public class Simulator
 
         Controller myController = new Controller();
         ReaderTemplate reader = new PropertyReader( myController );
+
+        try
+        {
+            reader.readFile( "../tests/property1.txt" );
+        }
+        catch (IOException e)
+        {
+            System.out.println( e.getMessage() );
+        }
+
+        System.out.println( myController.toString() );
 
     }
 

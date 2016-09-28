@@ -1,0 +1,8 @@
+Year,Event,Property
+2017,R-,32 Bakers Street
+2017,V+,Tumbleweed Co
+2018,W-,
+2018,V-,Tumbleweed Co
+2019,W+,
+2019,W+,
+2019,R+,Cannington factory

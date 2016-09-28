@@ -7,14 +7,29 @@
 *   REQUIRES: Property, List
 ***************************************************************************/
 import java.util.List;
+import java.util.ArrayList;
 
 public class Company extends Property
 {
     //CLASSFIELDS
-    String companyName;
     List<Company> ownedCompanies;
     BankAccount bank;
 
+    public Company()
+    {
+        ownedCompanies = new ArrayList<Company>();
+        bank = null;
+    }
+
+//---------------------------------------------------------------------------
+    public String toString()
+    {
+        String state = super.toString();
+        state += "TYPE: Company" + "\n";
+        state += "OWNED COMPANIES: ---" + "\n";
+        state += "BANK ACCOUNT: ---" + "\n";
+        return state;
+    }
 
 //---------------------------------------------------------------------------
 }

@@ -27,6 +27,7 @@ public abstract class ReaderTemplate
 			br = new BufferedReader(isr);
 
             line = br.readLine();
+            line = br.readLine(); // skip header row
             while (line != null)
             {
                 processLine( line.split(",") );
