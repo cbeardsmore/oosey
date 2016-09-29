@@ -12,16 +12,23 @@ import java.util.ArrayList;
 public class Company extends Property
 {
     //CLASSFIELDS
-    List<Company> ownedCompanies;
+    List<Property> ownedProps;
     BankAccount bank;
+
+//---------------------------------------------------------------------------
+    //PURPOSE: Initialise classfields, Bank initially null
 
     public Company()
     {
-        ownedCompanies = new ArrayList<Company>();
-        bank = null;
+        ownedProps = new ArrayList<Property>();
+        bank = new BankAccount();;
     }
 
 //---------------------------------------------------------------------------
+    //NAME: toString
+    //EXPORT: state (String)
+    //PURPOSE: Export state in readable String format
+
     public String toString()
     {
         String state = super.toString();
@@ -29,6 +36,22 @@ public class Company extends Property
         state += "OWNED COMPANIES: ---" + "\n";
         state += "BANK ACCOUNT: ---" + "\n";
         return state;
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: calcProfit()
+    //PURPOSE: Calculate Bank account profit for the year
+
+    public void calcProfit()
+    {
+        // First, get bank profit
+        int newProfit = bank.getProfit();
+
+        // Next, get profit of every company owned
+        for ( Property next : ownedProps )
+            newProfit += next.getProfit();
+
+        super.setProfit( newProfit );
     }
 
 //---------------------------------------------------------------------------

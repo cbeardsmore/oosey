@@ -31,6 +31,7 @@ public abstract class Property
     public void setName( String inName ) { name = inName; }
     public void setOwner( Company inOwner ) { owner = inOwner; }
     public void setValue( int inValue ) { value = inValue; }
+    public void setProfit( int inProfit ) { profit = inProfit; }
 
 //---------------------------------------------------------------------------
     //NAME: standard getters
@@ -38,7 +39,7 @@ public abstract class Property
     //PURPOSE: Export value of classfield asked for
 
     public String getName() { return name; };
-
+    public int getProfit() { return profit; }
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)

@@ -13,6 +13,8 @@ public class BusinessUnit extends Property
     private int revenue;
     private int wages;
 //---------------------------------------------------------------------------
+    //IMPORT: inRevenue (int), inWages (int)
+    //PURPOSE: Initialise classfields to imported values
 
     public BusinessUnit( int inRevenue, int inWages )
     {
@@ -24,7 +26,7 @@ public class BusinessUnit extends Property
     //NAME: toString
     //EXPORT: state (String)
     //PURPOSE: Export state in readable String format
-    
+
     public String toString()
     {
         String state = super.toString();
@@ -33,5 +35,15 @@ public class BusinessUnit extends Property
         state += "WAGES: " + wages + "\n";
         return state;
     }
+
+//---------------------------------------------------------------------------
+    //NAME: calcProfit()
+    //PURPOSE: Calculate Bank account profit for the year
+
+    public void calcProfit()
+    {
+        super.setProfit( revenue - wages );
+    }
+
 //---------------------------------------------------------------------------
 }

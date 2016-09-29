@@ -10,7 +10,13 @@ import java.io.*;
 
 public abstract class ReaderTemplate
 {
+    // Link to controller, so reader method can add objects into containers
     protected Controller control;
+
+//---------------------------------------------------------------------------
+    //NAME: readFile()
+    //IMPORT: filename (String)
+    //PURPOSE: Open up a file and read its contents into the Controller
 
     public void readFile(String filename) throws IOException
     {
@@ -26,8 +32,9 @@ public abstract class ReaderTemplate
 			isr = new InputStreamReader(fs);
 			br = new BufferedReader(isr);
 
+            // Read twice to skip over the initial header row
             line = br.readLine();
-            line = br.readLine(); // skip header row
+            line = br.readLine();
             while (line != null)
             {
                 processLine( line.split(",") );
@@ -38,14 +45,15 @@ public abstract class ReaderTemplate
 		catch (IOException e)
 		{
 			if ( fs != null )
-			{
 				fs.close();
-			}
 			throw new IOException("error reading input file");
 		}
     }
 
 //---------------------------------------------------------------------------
+    //NAME: processLine()
+    //IMPORT: fields (String[])
+    //PURPOSE: Template method, differs in each of the subclasses
 
     protected abstract void processLine(String[] fields);
 

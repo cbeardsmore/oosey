@@ -23,11 +23,16 @@ public class Simulator
         int endYear = Integer.parseInt( args[4] );
 
         Controller myController = new Controller();
-        ReaderTemplate reader = new PropertyReader( myController );
 
         try
         {
+            ReaderTemplate reader = null;
+            reader = new PropertyReader( myController );
             reader.readFile( "../tests/property1.txt" );
+            reader = new EventReader( myController );
+            reader.readFile( "../tests/event1.txt" );
+            reader = new PlanReader( myController );
+            reader.readFile( "../tests/plan1.txt" );
         }
         catch (IOException e)
         {
