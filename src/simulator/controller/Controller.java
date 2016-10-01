@@ -6,11 +6,14 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES: Property
 ***************************************************************************/
+package simulator.controller;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import simulator.model.*;
 
 public class Controller
 {

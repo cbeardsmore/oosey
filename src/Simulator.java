@@ -7,6 +7,8 @@
 *   REQUIRES:
 ***************************************************************************/
 import java.io.*;
+import simulator.model.*;
+import simulator.controller.*;
 
 public class Simulator
 {

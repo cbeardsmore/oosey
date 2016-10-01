@@ -1,25 +1,26 @@
 /***************************************************************************
-*	FILE: RevenueEvent.java
+*	FILE: Plan.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: RevenueEvent model
+*	PURPOSE: Plan model
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
+package simulator.model;
 
-public class RevenueEvent extends Event
+public abstract class Plan
 {
     //CLASSFIELDS
-    Property affected;
+    private int year;
+    private Property prop;
 
 //---------------------------------------------------------------------------
-    //IMPORT: inYear (int), inIncrease (boolean), inAff (BusinessUnit)
-    //PURPOSE: initialise fields to imported values
+    //PURPOSE: initialise Plan with given fields
 
-    public RevenueEvent( int inYear, boolean inIncrease, Property inAff )
+    public Plan( int inYear, Property inProp )
     {
-        super( inYear, inIncrease );
-        affected = inAff;
+        year = inYear;
+        prop = inProp;
     }
 
 //---------------------------------------------------------------------------
@@ -29,11 +30,10 @@ public class RevenueEvent extends Event
 
     public String toString()
     {
-        String state = super.toString();
-        state += "TYPE: Revenue" + "\n";
-        state += "AFFECTED: " + affected.getName() + "\n";
+        String state = "PLAN" + "\n";
+        state += "YEAR: " + year + "\n";
+        state += "PROPERTY: " + prop.getName() + "\n";
         return state;
     }
-
 //---------------------------------------------------------------------------
 }

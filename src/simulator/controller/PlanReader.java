@@ -6,6 +6,9 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
+package simulator.controller;
+
+import simulator.model.*;
 
 public class PlanReader extends ReaderTemplate
 {

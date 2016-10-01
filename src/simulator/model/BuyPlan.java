@@ -1,17 +1,18 @@
 /***************************************************************************
-*	FILE: SellPlan.java
+*	FILE: BuyPlan.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: SellPlan model
+*	PURPOSE: BuyPlan model
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
+package simulator.model;
 
-public class SellPlan extends Plan
+public class BuyPlan extends Plan
 {
     //PURPOSE: initialise Plan with given fields
 
-    public SellPlan( int inYear, Property inProp )
+    public BuyPlan( int inYear, Property inProp )
     {
         super( inYear, inProp );
     }
@@ -24,7 +25,7 @@ public class SellPlan extends Plan
     public String toString()
     {
         String state = super.toString();
-        state += "TYPE: Sell" + "\n";
+        state += "TYPE: Buy" + "\n";
         return state;
     }
 //---------------------------------------------------------------------------

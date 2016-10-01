@@ -8,4 +8,5 @@ LATEX=*.aux,*.log,*.out,*.bbl,*.blg,*.bcf,*.toc,*.lot,*.lof,*.synctex.gz*,*.run.
 
 clean :
 	rm -f -R src/*.class
+	rm -f -R src/simulator/*/*.class		
 	rm -f -R documentation/{$(LATEX)}

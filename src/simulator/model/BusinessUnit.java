@@ -1,26 +1,27 @@
 /***************************************************************************
-*	FILE: BankAccount.java
+*	FILE: BusinessUnit.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: BankAccount Model
+*	PURPOSE: BusinessUnit Model
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
+package simulator.model;
 
-public class BankAccount extends Property
+public class BusinessUnit extends Property
 {
-
-    //CLASSFIELDS + CONSTANTS
-    public static final int DEFAULT_BALANCE = 0;
-    public static final double INTEREST = 0.05;
-    private int balance;
+    //CLASSFIELDS
+    private int revenue;
+    private int wages;
 //---------------------------------------------------------------------------
-    //PURPOSE: Initialise balance to default value
+    //IMPORT: inRevenue (int), inWages (int)
+    //PURPOSE: Initialise classfields to imported values
 
-    public BankAccount()
+    public BusinessUnit( int inRevenue, int inWages )
     {
         super();
-        balance = DEFAULT_BALANCE;
+        revenue = inRevenue;
+        wages = inWages;
     }
 //---------------------------------------------------------------------------
     //NAME: toString
@@ -30,24 +31,19 @@ public class BankAccount extends Property
     public String toString()
     {
         String state = super.toString();
-        state += "BANK ACCOUNT BALANCE: " + balance + "\n";
+        state += "TYPE: Business Unit" + "\n";
+        state += "REVENUE: " + revenue + "\n";
+        state += "WAGES: " + wages + "\n";
         return state;
     }
+
 //---------------------------------------------------------------------------
     //NAME: calcProfit()
     //PURPOSE: Calculate Bank account profit for the year
 
     public void calcProfit()
     {
-        // Interest is 5% of the balance
-        int interestAmount = (int)(INTEREST * (double)balance);
-        // +ve interest for +ve balance and vice versa
-        if ( balance > 0 )
-            balance += interestAmount;
-        else
-            balance -= interestAmount;
-        // Set the Bank Property profit value
-        super.setProfit( interestAmount );
+        super.setProfit( revenue - wages );
     }
 
 //---------------------------------------------------------------------------

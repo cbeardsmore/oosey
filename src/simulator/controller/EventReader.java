@@ -6,6 +6,9 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES: Property
 ***************************************************************************/
+package simulator.controller;
+
+import simulator.model.*;
 
 public class EventReader extends ReaderTemplate
 {

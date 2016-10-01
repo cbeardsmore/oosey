@@ -6,6 +6,7 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
+package simulator.model;
 
 public abstract class Event
 {

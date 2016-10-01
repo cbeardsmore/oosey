@@ -1,29 +1,28 @@
 /***************************************************************************
-*	FILE: Company.java
+*	FILE: BankAccount.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: Company Model
+*	PURPOSE: BankAccount Model
 *   LAST MOD: 28/09/16
-*   REQUIRES: Property, List
+*   REQUIRES: NONE
 ***************************************************************************/
-import java.util.List;
-import java.util.ArrayList;
+package simulator.model;
 
-public class Company extends Property
+public class BankAccount extends Property
 {
-    //CLASSFIELDS
-    List<Property> ownedProps;
-    BankAccount bank;
 
+    //CLASSFIELDS + CONSTANTS
+    public static final int DEFAULT_BALANCE = 0;
+    public static final double INTEREST = 0.05;
+    private int balance;
 //---------------------------------------------------------------------------
-    //PURPOSE: Initialise classfields, Bank initially null
+    //PURPOSE: Initialise balance to default value
 
-    public Company()
+    public BankAccount()
     {
-        ownedProps = new ArrayList<Property>();
-        bank = new BankAccount();;
+        super();
+        balance = DEFAULT_BALANCE;
     }
-
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)
@@ -32,26 +31,24 @@ public class Company extends Property
     public String toString()
     {
         String state = super.toString();
-        state += "TYPE: Company" + "\n";
-        state += "OWNED COMPANIES: ---" + "\n";
-        state += "BANK ACCOUNT: ---" + "\n";
+        state += "BANK ACCOUNT BALANCE: " + balance + "\n";
         return state;
     }
-
 //---------------------------------------------------------------------------
     //NAME: calcProfit()
     //PURPOSE: Calculate Bank account profit for the year
 
     public void calcProfit()
     {
-        // First, get bank profit
-        int newProfit = bank.getProfit();
-
-        // Next, get profit of every company owned
-        for ( Property next : ownedProps )
-            newProfit += next.getProfit();
-
-        super.setProfit( newProfit );
+        // Interest is 5% of the balance
+        int interestAmount = (int)(INTEREST * (double)balance);
+        // +ve interest for +ve balance and vice versa
+        if ( balance > 0 )
+            balance += interestAmount;
+        else
+            balance -= interestAmount;
+        // Set the Bank Property profit value
+        super.setProfit( interestAmount );
     }
 
 //---------------------------------------------------------------------------

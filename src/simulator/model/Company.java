@@ -1,27 +1,31 @@
 /***************************************************************************
-*	FILE: BusinessUnit.java
+*	FILE: Company.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: BusinessUnit Model
+*	PURPOSE: Company Model
 *   LAST MOD: 28/09/16
-*   REQUIRES: NONE
+*   REQUIRES: Property, List
 ***************************************************************************/
+package simulator.model;
 
-public class BusinessUnit extends Property
+import java.util.List;
+import java.util.ArrayList;
+
+public class Company extends Property
 {
     //CLASSFIELDS
-    private int revenue;
-    private int wages;
-//---------------------------------------------------------------------------
-    //IMPORT: inRevenue (int), inWages (int)
-    //PURPOSE: Initialise classfields to imported values
+    List<Property> ownedProps;
+    BankAccount bank;
 
-    public BusinessUnit( int inRevenue, int inWages )
+//---------------------------------------------------------------------------
+    //PURPOSE: Initialise classfields, Bank initially null
+
+    public Company()
     {
-        super();
-        revenue = inRevenue;
-        wages = inWages;
+        ownedProps = new ArrayList<Property>();
+        bank = new BankAccount();;
     }
+
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)
@@ -30,9 +34,9 @@ public class BusinessUnit extends Property
     public String toString()
     {
         String state = super.toString();
-        state += "TYPE: Business Unit" + "\n";
-        state += "REVENUE: " + revenue + "\n";
-        state += "WAGES: " + wages + "\n";
+        state += "TYPE: Company" + "\n";
+        state += "OWNED COMPANIES: ---" + "\n";
+        state += "BANK ACCOUNT: ---" + "\n";
         return state;
     }
 
@@ -42,7 +46,14 @@ public class BusinessUnit extends Property
 
     public void calcProfit()
     {
-        super.setProfit( revenue - wages );
+        // First, get bank profit
+        int newProfit = bank.getProfit();
+
+        // Next, get profit of every company owned
+        for ( Property next : ownedProps )
+            newProfit += next.getProfit();
+
+        super.setProfit( newProfit );
     }
 
 //---------------------------------------------------------------------------

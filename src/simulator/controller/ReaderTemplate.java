@@ -6,7 +6,10 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES: java.io
 ***************************************************************************/
+package simulator.controller;
+
 import java.io.*;
+import simulator.model.*;
 
 public abstract class ReaderTemplate
 {
