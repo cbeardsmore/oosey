@@ -13,6 +13,7 @@ public class BusinessUnit extends Property
     //CLASSFIELDS
     private int revenue;
     private int wages;
+
 //---------------------------------------------------------------------------
     //IMPORT: inRevenue (int), inWages (int)
     //PURPOSE: Initialise classfields to imported values
@@ -23,6 +24,18 @@ public class BusinessUnit extends Property
         revenue = inRevenue;
         wages = inWages;
     }
+//---------------------------------------------------------------------------
+    //Setters
+
+    public void setRevenue( int inRevenue ) { revenue = inRevenue; }
+    public void setWages( int inWages ) { wages = inWages; }
+
+//---------------------------------------------------------------------------
+    //Getters
+
+    public int getRevenue() { return revenue; }
+    public int getWages()   { return wages; }
+
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)

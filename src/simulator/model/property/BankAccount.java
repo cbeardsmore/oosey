@@ -12,17 +12,16 @@ public class BankAccount extends Property
 {
 
     //CLASSFIELDS + CONSTANTS
-    public static final int DEFAULT_BALANCE = 0;
     public static final double INTEREST = 0.05;
-    private int balance;
+
 //---------------------------------------------------------------------------
     //PURPOSE: Initialise balance to default value
 
     public BankAccount()
     {
         super();
-        balance = DEFAULT_BALANCE;
     }
+
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)
@@ -31,7 +30,7 @@ public class BankAccount extends Property
     public String toString()
     {
         String state = super.toString();
-        state += "BANK ACCOUNT BALANCE: " + balance + "\n";
+        state += "BANK ACCOUNT BALANCE: " + super.getValue() + "\n";
         return state;
     }
 //---------------------------------------------------------------------------
@@ -41,6 +40,7 @@ public class BankAccount extends Property
     public void calcProfit()
     {
         // Interest is 5% of the balance
+        int balance = super.getValue();
         int interestAmount = (int)(INTEREST * (double)balance);
         // +ve interest for +ve balance and vice versa
         if ( balance > 0 )

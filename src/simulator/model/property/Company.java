@@ -10,11 +10,13 @@ package simulator.model.property;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Company extends Property
 {
     //CLASSFIELDS
-    List<Property> ownedProps;
+    Map<String,Property> ownedProps;
     BankAccount bank;
 
 //---------------------------------------------------------------------------
@@ -22,12 +24,28 @@ public class Company extends Property
 
     public Company()
     {
-        ownedProps = new ArrayList<Property>();
+        ownedProps = new HashMap<String,Property>();
         bank = new BankAccount();
     }
 
 //---------------------------------------------------------------------------
-    //NAME: toString
+    //Getters
+
+    public Property getProperty(String name) { return ownedProps.get(name); }
+    public BankAccount getBank() { return bank; }
+
+//---------------------------------------------------------------------------
+    //NAME: addProperty()
+    //IMPORT: name (String), newProp (Property)
+    //PURPOSE: Add a new property to owned companies
+
+    public void addProperty( String name, Property newProp )
+    {
+        ownedProps.put( name, newProp );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: toString()
     //EXPORT: state (String)
     //PURPOSE: Export state in readable String format
 
@@ -48,10 +66,14 @@ public class Company extends Property
     {
         // First, get bank profit
         int newProfit = bank.getProfit();
+        Property nextProp = null;
 
-        // Next, get profit of every company owned
-        for ( Property next : ownedProps )
-            newProfit += next.getProfit();
+        for ( Map.Entry<String,Property> entry : ownedProps.entrySet() )
+        {
+            nextProp = entry.getValue();
+            if ( nextProp != null )
+                newProfit += nextProp.getProfit();
+        }
 
         super.setProfit( newProfit );
     }
