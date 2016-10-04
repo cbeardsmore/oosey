@@ -13,12 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-import simulator.model.*;
+import simulator.model.property.*;
+import simulator.model.event.*;
+import simulator.model.plan.*;
+
 
 public class Controller
 {
     //CLASSFIELDS
     private Map<String,Property> propMap;
+    private Company primary;
     private List<Event> eventList;
     private List<Plan> planList;
 
@@ -30,6 +34,7 @@ public class Controller
         propMap = new HashMap<String,Property>();
         eventList = new ArrayList<Event>();
         planList = new ArrayList<Plan>();
+        primary = null;
     }
 
 //---------------------------------------------------------------------------
@@ -40,6 +45,8 @@ public class Controller
     public void setProperty(String name, Property prop)
     {
         propMap.put( name, prop );
+        if ( ( primary == null ) && ( prop instanceof Company ) )
+            primary = (Company)prop;
     }
 
 //---------------------------------------------------------------------------
@@ -103,6 +110,9 @@ public class Controller
          // PRINT ALL PROPERTIES
         String state = "PROPERTY MAP CONTENTS\n";
         state += "---------------------\n";
+
+        // Print primary Company name
+        state += "PRIMARY: " + primary.getName() + "\n\n";
 
         // iterate over all values in the property hashmap
         for ( Map.Entry<String,Property> entry : propMap.entrySet() )

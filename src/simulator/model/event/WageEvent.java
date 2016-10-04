@@ -1,27 +1,20 @@
 /***************************************************************************
-*	FILE: ValueEvent.java
+*	FILE: WageEvent.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: ValueEvent model
+*	PURPOSE: WageEvent model
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
-package simulator.model;
+package simulator.model.event;
 
-public class ValueEvent extends Event
+public class WageEvent extends Event
 {
-    //CLASSFIELDS
-    Property affected;
-
-//---------------------------------------------------------------------------
-    //IMPORT: inYear (int), inIncrease (boolean), inAff (Property)
-    //PURPOSE: initialise fields to imported values
-
-    public ValueEvent( int inYear, boolean inIncrease, Property inAff )
+    public WageEvent( int inYear, boolean inIncrease )
     {
         super( inYear, inIncrease );
-        affected = inAff;
     }
+
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)
@@ -30,8 +23,7 @@ public class ValueEvent extends Event
     public String toString()
     {
         String state = super.toString();
-        state += "TYPE: Value" + "\n";
-        state += "AFFECTED: " + affected.getName() + "\n";
+        state += "TYPE: Wage" + "\n";
         return state;
     }
 

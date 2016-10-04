@@ -8,7 +8,7 @@
 ***************************************************************************/
 package simulator.controller;
 
-import simulator.model.*;
+import simulator.model.property.*;
 
 public class PropertyReader extends ReaderTemplate
 {

@@ -6,7 +6,9 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
-package simulator.model;
+package simulator.model.event;
+
+import simulator.model.property.*;
 
 public class RevenueEvent extends Event
 {

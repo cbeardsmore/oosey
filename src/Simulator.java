@@ -7,16 +7,19 @@
 *   REQUIRES:
 ***************************************************************************/
 import java.io.*;
-import simulator.model.*;
+import simulator.model.event.*;
+import simulator.model.plan.*;
+import simulator.model.property.*;
 import simulator.controller.*;
+import simulator.view.*;
 
 public class Simulator
 {
     public static void main( String[] args )
     {
         // CLA'S -> PROPERTY_FILE, EVENT_FILE, PLAN_FILE, START_YR, END_YR
-        //if ( args.length != 5 )
-        //    throw new IllegalArgumentException("INVALID CLA");
+        if ( args.length != 5 )
+            throw new IllegalArgumentException("INVALID CLA");
 
         String propertyFile = args[0];
         String eventFile = args[1];
@@ -25,6 +28,7 @@ public class Simulator
         int endYear = Integer.parseInt( args[4] );
 
         Controller myController = new Controller();
+        PrimaryView myView = new PrimaryView();
 
         try
         {
@@ -41,7 +45,7 @@ public class Simulator
             System.out.println( e.getMessage() );
         }
 
-        System.out.println( myController.toString() );
+        myView.output( myController.toString() );
 
     }
 

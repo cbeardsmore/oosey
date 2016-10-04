@@ -6,12 +6,11 @@
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
-package simulator.model;
+package simulator.model.property;
 
 public abstract class Property
 {
     //CONSTANTS
-    public static final String UNOWNED = "No Owner";
     public static final int DEFAULT_PROFIT = 0;
 
     //CLASSFIELDS
@@ -22,7 +21,15 @@ public abstract class Property
 //---------------------------------------------------------------------------
     //PURPOSE: Initialise profit to default value
 
-    public Property() { profit = DEFAULT_PROFIT; }
+    public Property() { profit = DEFAULT_PROFIT; owner = null; }
+
+//---------------------------------------------------------------------------
+
+    public Property( String inName, Company inOwner )
+    {
+        name = inName;
+        owner = inOwner;
+    }
 
 //---------------------------------------------------------------------------
     //NAME: Standard setters
@@ -55,7 +62,7 @@ public abstract class Property
         if ( owner != null )
             state += owner.getName() + "\n";
         else
-            state += UNOWNED + "\n";
+            state += "Unowned" + "\n";
         return state;
     }
 

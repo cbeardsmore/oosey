@@ -8,7 +8,8 @@
 ***************************************************************************/
 package simulator.controller;
 
-import simulator.model.*;
+import simulator.model.property.*;
+import simulator.model.event.*;
 
 public class EventReader extends ReaderTemplate
 {

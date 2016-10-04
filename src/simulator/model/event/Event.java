@@ -1,26 +1,26 @@
 /***************************************************************************
-*	FILE: Plan.java
+*	FILE: Event.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: Plan model
+*	PURPOSE: Event model
 *   LAST MOD: 28/09/16
 *   REQUIRES: NONE
 ***************************************************************************/
-package simulator.model;
+package simulator.model.event;
 
-public abstract class Plan
+public abstract class Event
 {
     //CLASSFIELDS
     private int year;
-    private Property prop;
+    private boolean increase;
 
 //---------------------------------------------------------------------------
-    //PURPOSE: initialise Plan with given fields
+    //PURPOSE: initialise Event with given fields
 
-    public Plan( int inYear, Property inProp )
+    public Event( int inYear, boolean inIncrease )
     {
         year = inYear;
-        prop = inProp;
+        increase = inIncrease;
     }
 
 //---------------------------------------------------------------------------
@@ -30,9 +30,9 @@ public abstract class Plan
 
     public String toString()
     {
-        String state = "PLAN" + "\n";
+        String state = "EVENT" + "\n";
         state += "YEAR: " + year + "\n";
-        state += "PROPERTY: " + prop.getName() + "\n";
+        state += "INCREASE: " + increase + "\n";
         return state;
     }
 //---------------------------------------------------------------------------

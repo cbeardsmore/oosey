@@ -1,28 +1,31 @@
 /***************************************************************************
-*	FILE: BankAccount.java
+*	FILE: Company.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: BankAccount Model
+*	PURPOSE: Company Model
 *   LAST MOD: 28/09/16
-*   REQUIRES: NONE
+*   REQUIRES: Property, List
 ***************************************************************************/
-package simulator.model;
+package simulator.model.property;
 
-public class BankAccount extends Property
+import java.util.List;
+import java.util.ArrayList;
+
+public class Company extends Property
 {
+    //CLASSFIELDS
+    List<Property> ownedProps;
+    BankAccount bank;
 
-    //CLASSFIELDS + CONSTANTS
-    public static final int DEFAULT_BALANCE = 0;
-    public static final double INTEREST = 0.05;
-    private int balance;
 //---------------------------------------------------------------------------
-    //PURPOSE: Initialise balance to default value
+    //PURPOSE: Initialise classfields, Bank initially null
 
-    public BankAccount()
+    public Company()
     {
-        super();
-        balance = DEFAULT_BALANCE;
+        ownedProps = new ArrayList<Property>();
+        bank = new BankAccount();
     }
+
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)
@@ -31,24 +34,26 @@ public class BankAccount extends Property
     public String toString()
     {
         String state = super.toString();
-        state += "BANK ACCOUNT BALANCE: " + balance + "\n";
+        state += "TYPE: Company" + "\n";
+        state += "OWNED COMPANIES: ---" + "\n";
+        state += "BANK ACCOUNT: ---" + "\n";
         return state;
     }
+
 //---------------------------------------------------------------------------
     //NAME: calcProfit()
     //PURPOSE: Calculate Bank account profit for the year
 
     public void calcProfit()
     {
-        // Interest is 5% of the balance
-        int interestAmount = (int)(INTEREST * (double)balance);
-        // +ve interest for +ve balance and vice versa
-        if ( balance > 0 )
-            balance += interestAmount;
-        else
-            balance -= interestAmount;
-        // Set the Bank Property profit value
-        super.setProfit( interestAmount );
+        // First, get bank profit
+        int newProfit = bank.getProfit();
+
+        // Next, get profit of every company owned
+        for ( Property next : ownedProps )
+            newProfit += next.getProfit();
+
+        super.setProfit( newProfit );
     }
 
 //---------------------------------------------------------------------------
