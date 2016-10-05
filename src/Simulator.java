@@ -21,6 +21,7 @@ public class Simulator
         if ( args.length != 5 )
             throw new IllegalArgumentException("INVALID CLA");
 
+
         String propertyFile = args[0];
         String eventFile = args[1];
         String planFile = args[2];
@@ -28,7 +29,7 @@ public class Simulator
         int endYear = Integer.parseInt( args[4] );
 
         Controller myController = new Controller();
-        PrimaryView myView = new PrimaryView();
+        PrimaryView myView = new PrimaryView( myController );
 
         try
         {
@@ -45,6 +46,7 @@ public class Simulator
             System.out.println( e.getMessage() );
         }
 
+        myController.run( startYear, endYear );
         myView.output( myController.toString() );
 
     }

@@ -13,7 +13,14 @@ import simulator.controller.*;
 
 public class PrimaryView
 {
-    public PrimaryView() {}
+    private Controller control;
+
+//---------------------------------------------------------------------------
+
+    public PrimaryView( Controller inControl )
+    {
+        control = inControl;
+    }
 
 //---------------------------------------------------------------------------
 

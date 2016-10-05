@@ -10,6 +10,9 @@ package simulator.model.event;
 
 public abstract class Event
 {
+    // All events increase/decrease by 5%
+    public static final double valueChange = 0.05;
+
     //CLASSFIELDS
     private int year;
     private boolean increase;
@@ -26,10 +29,14 @@ public abstract class Event
 //---------------------------------------------------------------------------
     //Getters
 
-
+    public int getYear() { return year; }
+    public boolean isIncrease() { return increase; }
 
 //---------------------------------------------------------------------------
     //Setters
+
+    public void setYear( int inYear ) { year = inYear; }
+    public void setIncrease( boolean inInc ) { increase = inInc; }
 
 //---------------------------------------------------------------------------
     //NAME: toString

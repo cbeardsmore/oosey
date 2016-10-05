@@ -16,8 +16,8 @@ import java.util.HashMap;
 public class Company extends Property
 {
     //CLASSFIELDS
-    Map<String,Property> ownedProps;
-    BankAccount bank;
+    private Map<String,Property> ownedProps;
+    private BankAccount bank;
 
 //---------------------------------------------------------------------------
     //PURPOSE: Initialise classfields, Bank initially null
@@ -59,6 +59,23 @@ public class Company extends Property
     }
 
 //---------------------------------------------------------------------------
+    //NAME: ownsUnit()
+    //IMPORT: name (String)
+    //EXPORT: owns (boolean)
+    //PURPOSE: Returns true if the company owns the imported BusinessUnit
+
+    public boolean ownsUnit( String name )
+    {
+        boolean owns = false;
+        Property prop = ownedProps.get(name);
+        // If prop exists in the map, it will not equal to null
+        if ( prop != null )
+            owns = true;
+        return owns;
+    }
+
+
+//---------------------------------------------------------------------------
     //NAME: calcProfit()
     //PURPOSE: Calculate Bank account profit for the year
 
@@ -76,6 +93,51 @@ public class Company extends Property
         }
 
         super.setProfit( newProfit );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: buys()
+    //IMPORT: inNew (Property)
+    //PURPOSE: Adds new property to this company and updates all fields
+
+    public void buys( Property inNew )
+    {
+        // Put property in the map of owner properties
+        int propValue = inNew.getValue();
+        String name = inNew.getName();
+        ownedProps.put( name, inNew );
+
+        // Decrease the value of this Companys Bank
+        bank.setValue( bank.getValue() - propValue );
+
+        // Increase the value of the selling Companys Bank
+        Company oldOwner = inNew.getOwner();
+        if ( oldOwner != null )
+        {
+            BankAccount oldBank = oldOwner.getBank();
+            oldBank.setValue( oldBank.getValue() + propValue );
+        }
+    }
+
+
+//---------------------------------------------------------------------------
+    //NAME: sells()
+    //IMPORT: inNew (Property)
+    //PURPOSE: Sells property and updates all fields
+
+    public void sells( Property inNew )
+    {
+        //Remove property from the owned property map
+        int propValue = inNew.getValue();
+        String name = inNew.getName();
+        ownedProps.remove( name );
+
+        // Increase the value of this Companys Bank
+        bank.setValue( bank.getValue() + propValue );
+
+        // Set the new owner of the Property as "Unnamed"
+        inNew.setOwner( null );
+
     }
 
 //---------------------------------------------------------------------------

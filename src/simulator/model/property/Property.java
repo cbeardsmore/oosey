@@ -26,6 +26,7 @@ public abstract class Property
     {
         profit = DEFAULT_PROFIT;
         value = DEFAULT_VALUE;
+        name = null;
         owner = null;
     }
 

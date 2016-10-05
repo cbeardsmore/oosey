@@ -19,6 +19,7 @@ public class BankAccount extends Property
 
     public BankAccount()
     {
+        //Will initialise the banks "balance" (same as value) to 0
         super();
     }
 

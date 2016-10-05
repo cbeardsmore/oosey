@@ -8,7 +8,7 @@
 ***************************************************************************/
 package simulator.model.property;
 
-public class BusinessUnit extends Property
+public class BusinessUnit extends Property implements WageObserver
 {
     //CLASSFIELDS
     private int revenue;

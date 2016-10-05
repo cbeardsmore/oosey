@@ -25,6 +25,8 @@ public class Controller
     private Company primary;
     private List<Event> eventList;
     private List<Plan> planList;
+    private List<WageObserver> observers;
+    private int currentYear;
 
 //---------------------------------------------------------------------------
     //PURPOSE: initialise property map as a HashMap
@@ -35,6 +37,20 @@ public class Controller
         eventList = new ArrayList<Event>();
         planList = new ArrayList<Plan>();
         primary = null;
+        currentYear = 0;
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: run()
+    //IMPORT: start (int), end (int)
+    //PURPOSE: Like run things and stuff
+
+    public void run( int start, int end )
+    {
+        if ( start < end )
+            throw new IllegalArgumentException("Years invalid");
+
+
     }
 
 //---------------------------------------------------------------------------

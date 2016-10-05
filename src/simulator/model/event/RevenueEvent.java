@@ -13,7 +13,7 @@ import simulator.model.property.*;
 public class RevenueEvent extends Event
 {
     //CLASSFIELDS
-    Property affected;
+    private Property affected;
 
 //---------------------------------------------------------------------------
     //IMPORT: inYear (int), inIncrease (boolean), inAff (BusinessUnit)
@@ -24,6 +24,16 @@ public class RevenueEvent extends Event
         super( inYear, inIncrease );
         affected = inAff;
     }
+
+//---------------------------------------------------------------------------
+    //Getters
+
+    public Property getAffected() { return affected; }
+
+//---------------------------------------------------------------------------
+    //Setters
+
+    public void setAffected( Property inAff ) { affected = inAff; }
 
 //---------------------------------------------------------------------------
     //NAME: toString
