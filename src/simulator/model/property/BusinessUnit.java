@@ -60,4 +60,17 @@ public class BusinessUnit extends Property implements WageObserver
     }
 
 //---------------------------------------------------------------------------
+    //NAME: updateWage()
+    //IMPORT: isIncrease (boolean)
+    //PURPOSE: Update wages based on an occuring wage event
+
+    public void updateWage( boolean isIncrease )
+    {
+        if ( isIncrease )
+            wages = (int)(1.05 * (double)wages);
+        else
+            wages = (int)(0.95 * (double)wages);
+    }
+
+//---------------------------------------------------------------------------
 }

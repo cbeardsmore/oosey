@@ -36,6 +36,7 @@ public class Controller
         propMap = new HashMap<String,Property>();
         eventList = new ArrayList<Event>();
         planList = new ArrayList<Plan>();
+        observers = new ArrayList<WageObserver>();
         primary = null;
         currentYear = 0;
     }
@@ -47,9 +48,8 @@ public class Controller
 
     public void run( int start, int end )
     {
-        if ( start < end )
-            throw new IllegalArgumentException("Years invalid");
-
+        //if ( start < end )
+        //    throw new IllegalArgumentException("Years invalid");
 
     }
 
@@ -63,6 +63,8 @@ public class Controller
         propMap.put( name, prop );
         if ( ( primary == null ) && ( prop instanceof Company ) )
             primary = (Company)prop;
+        if ( prop instanceof WageObserver )
+            attach( (WageObserver)prop );
     }
 
 //---------------------------------------------------------------------------
@@ -117,6 +119,36 @@ public class Controller
     }
 
 //---------------------------------------------------------------------------
+    //NAME: getObs()
+    //EXPORT: iterator over the observer list
+    //PURPOSE: Get iterator for the observer list
+
+    public Iterator<WageObserver> getObs()
+    {
+        return observers.iterator();
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: attach()
+    //IMPORT: observer (WageObserver)
+    //PURPOSE: Add new observer to the observer list
+
+    public void attach( WageObserver observer )
+    {
+        observers.add( observer );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: notifyWages()
+    //PURPOSE: Call update on all observers in observer list
+
+    public void notifyWages( boolean isIncrease )
+    {
+        for (WageObserver observer : observers)
+            observer.updateWage( isIncrease );
+    }
+
+//---------------------------------------------------------------------------
     //NAME: toString()
     //EXPORT: state (String)
     //PURPOSE: Export state in readable String format
@@ -154,6 +186,16 @@ public class Controller
         while ( planIter.hasNext() )
         {
             state += planIter.next().toString() + "\n";
+        }
+
+        // PRINT ALL OBSERVERS
+        state += "\nOBSERVER LIST CONTENTS\n";
+        state += "------------------\n";
+        Iterator<WageObserver> obsIter = getObs();
+        while ( obsIter.hasNext() )
+        {
+            BusinessUnit next = (BusinessUnit)obsIter.next();
+            state += next.toString() + "\n";
         }
 
         return state;

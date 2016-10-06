@@ -10,5 +10,5 @@ package simulator.model.property;
 
 public interface WageObserver
 {
-    public void update();
+    public void updateWage(boolean isIncrease);
 }
