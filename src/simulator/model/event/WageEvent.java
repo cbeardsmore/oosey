@@ -10,9 +10,18 @@ package simulator.model.event;
 
 public class WageEvent extends Event
 {
+    public WageEvent()
+    {
+        super();
+    }
+
+//---------------------------------------------------------------------------
+
     public WageEvent( int inYear, boolean inIncrease )
     {
-        super( inYear, inIncrease );
+        //WageEvent currently doesn't apply to any specific property
+        //Leave as null, in case we have specific WageEvents later
+        super( inYear, inIncrease, null );
     }
 
 //---------------------------------------------------------------------------

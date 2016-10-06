@@ -16,7 +16,7 @@ import java.util.Iterator;
 import simulator.model.property.*;
 import simulator.model.event.*;
 import simulator.model.plan.*;
-
+import simulator.view.*;
 
 public class Controller
 {
@@ -27,16 +27,18 @@ public class Controller
     private List<Plan> planList;
     private List<WageObserver> observers;
     private int currentYear;
+    private PrimaryView view;
 
 //---------------------------------------------------------------------------
     //PURPOSE: initialise property map as a HashMap
 
-    public Controller()
+    public Controller( PrimaryView inView )
     {
         propMap = new HashMap<String,Property>();
         eventList = new ArrayList<Event>();
         planList = new ArrayList<Plan>();
         observers = new ArrayList<WageObserver>();
+        view = inView;
         primary = null;
         currentYear = 0;
     }
@@ -48,9 +50,10 @@ public class Controller
 
     public void run( int start, int end )
     {
-        //if ( start < end )
-        //    throw new IllegalArgumentException("Years invalid");
-
+        for ( int ii = start; ii <= end; ii++ )
+        {
+            
+        }
     }
 
 //---------------------------------------------------------------------------

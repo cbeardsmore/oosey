@@ -13,14 +13,9 @@ import simulator.controller.*;
 
 public class PrimaryView
 {
-    private Controller control;
-
 //---------------------------------------------------------------------------
 
-    public PrimaryView( Controller inControl )
-    {
-        control = inControl;
-    }
+    public PrimaryView() {}
 
 //---------------------------------------------------------------------------
 

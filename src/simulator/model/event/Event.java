@@ -8,6 +8,8 @@
 ***************************************************************************/
 package simulator.model.event;
 
+import simulator.model.property.*;
+
 public abstract class Event
 {
     // All events increase/decrease by 5%
@@ -16,14 +18,26 @@ public abstract class Event
     //CLASSFIELDS
     private int year;
     private boolean increase;
+    private Property affected;
 
 //---------------------------------------------------------------------------
     //PURPOSE: initialise Event with given fields
 
-    public Event( int inYear, boolean inIncrease )
+    public Event()
+    {
+        year = -1;
+        increase = false;
+        affected = null;
+    }
+
+//---------------------------------------------------------------------------
+    //PURPOSE: initialise Event with given fields
+
+    public Event( int inYear, boolean inIncrease, Property inAff )
     {
         year = inYear;
         increase = inIncrease;
+        affected = inAff;
     }
 
 //---------------------------------------------------------------------------
@@ -31,12 +45,14 @@ public abstract class Event
 
     public int getYear() { return year; }
     public boolean isIncrease() { return increase; }
+    public Property getAffected() { return affected; }
 
 //---------------------------------------------------------------------------
     //Setters
 
     public void setYear( int inYear ) { year = inYear; }
     public void setIncrease( boolean inInc ) { increase = inInc; }
+    public void setAffected( Property inAff ) { affected = inAff; }
 
 //---------------------------------------------------------------------------
     //NAME: toString
@@ -48,6 +64,7 @@ public abstract class Event
         String state = "EVENT" + "\n";
         state += "YEAR: " + year + "\n";
         state += "INCREASE: " + increase + "\n";
+        state += "AFFECTED: " + affected.getName() + "\n";
         return state;
     }
 //---------------------------------------------------------------------------

@@ -12,6 +12,11 @@ import simulator.model.property.*;
 
 public class BuyPlan extends Plan
 {
+    public BuyPlan()
+    {
+        super();
+    }
+//---------------------------------------------------------------------------
     //PURPOSE: initialise Plan with given fields
 
     public BuyPlan( int inYear, Property inProp )

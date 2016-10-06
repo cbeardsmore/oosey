@@ -12,8 +12,10 @@ import simulator.model.property.*;
 
 public class RevenueEvent extends Event
 {
-    //CLASSFIELDS
-    private Property affected;
+    public RevenueEvent()
+    {
+        super();
+    }
 
 //---------------------------------------------------------------------------
     //IMPORT: inYear (int), inIncrease (boolean), inAff (BusinessUnit)
@@ -21,19 +23,8 @@ public class RevenueEvent extends Event
 
     public RevenueEvent( int inYear, boolean inIncrease, Property inAff )
     {
-        super( inYear, inIncrease );
-        affected = inAff;
+        super( inYear, inIncrease, inAff );
     }
-
-//---------------------------------------------------------------------------
-    //Getters
-
-    public Property getAffected() { return affected; }
-
-//---------------------------------------------------------------------------
-    //Setters
-
-    public void setAffected( Property inAff ) { affected = inAff; }
 
 //---------------------------------------------------------------------------
     //NAME: toString
@@ -44,7 +35,6 @@ public class RevenueEvent extends Event
     {
         String state = super.toString();
         state += "TYPE: Revenue" + "\n";
-        state += "AFFECTED: " + affected.getName() + "\n";
         return state;
     }
 

@@ -13,9 +13,13 @@ import simulator.model.plan.*;
 
 public class PlanReader extends ReaderTemplate
 {
-    public PlanReader( Controller inControl )
+    //CLASSFIELDS
+    private PlanFactory factory;
+
+    public PlanReader( Controller inControl, PlanFactory inFactory )
     {
         control = inControl;
+        factory = inFactory;
     }
 
 //---------------------------------------------------------------------------
@@ -36,11 +40,8 @@ public class PlanReader extends ReaderTemplate
         if ( fields.length == 3 )
             prop = control.getProperty( fields[2] );
 
-        // Create object based on char field
-        if ( fields[1].charAt(0) == 'B' )
-            newPlan = new BuyPlan( year, prop );
-        else if ( fields[1].charAt(0) == 'S' )
-            newPlan = new SellPlan( year, prop );
+        char type = fields[1].charAt(0);
+        newPlan = factory.createPlan( type );
 
         control.setPlan( newPlan );
     }

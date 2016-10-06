@@ -17,6 +17,15 @@ public abstract class Plan
     private Property prop;
 
 //---------------------------------------------------------------------------
+    //PURPOSE: initialise Plan with default fields
+
+    public Plan()
+    {
+        year = -1;
+        prop = null;
+    }
+
+//---------------------------------------------------------------------------
     //PURPOSE: initialise Plan with given fields
 
     public Plan( int inYear, Property inProp )

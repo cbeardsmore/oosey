@@ -13,9 +13,13 @@ import simulator.model.event.*;
 
 public class EventReader extends ReaderTemplate
 {
-    public EventReader( Controller inControl )
+    //CLASSFIELDS
+    private EventFactory factory;
+
+    public EventReader( Controller inControl, EventFactory inFactory )
     {
         control = inControl;
+        factory = inFactory;
     }
 //---------------------------------------------------------------------------
     //NAME: processLine()
@@ -35,18 +39,15 @@ public class EventReader extends ReaderTemplate
         if ( fields.length == 3 )
             affected = control.getProperty( fields[2] );
 
-        // Find whether increase of decrease event
-        if ( fields[1].charAt(1) == '+' )
-            increase = true;
+        // Specify type and create via factory
+        char type = fields[1].charAt(0);
+        newEvent = factory.createEvent( type );
 
-        // Create object based on char field
-        if ( fields[1].charAt(0) == 'W' )
-            newEvent = new WageEvent( year, increase );
-        else if ( fields[1].charAt(0) == 'R' )
-            newEvent = new RevenueEvent( year, increase, affected );
-        else if ( fields[1].charAt(0) == 'V' )
-            newEvent = new ValueEvent( year, increase, affected );
+        // Set year and affected property
+        newEvent.setYear( year );
+        newEvent.setAffected( affected );
 
+        // Add to event list in controller
         control.setEvent( newEvent );
     }
 
