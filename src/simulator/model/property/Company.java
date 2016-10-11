@@ -53,8 +53,20 @@ public class Company extends Property
     {
         String state = super.toString();
         state += "TYPE: Company" + "\n";
-        state += "OWNED COMPANIES: ---" + "\n";
-        state += "BANK ACCOUNT: ---" + "\n";
+        state += bank.toString();
+        state += "OWNED COMPANIES: ";
+
+        if ( ownedProps.isEmpty() )
+            state += "-----";
+
+        for ( Map.Entry<String,Property> entry : ownedProps.entrySet() )
+        {
+            Property next = entry.getValue();
+            if ( next != null )
+                state += " : " + next.getName();
+        }
+
+        state += "\n";
         return state;
     }
 

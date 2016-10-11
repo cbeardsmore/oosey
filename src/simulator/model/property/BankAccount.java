@@ -30,8 +30,7 @@ public class BankAccount extends Property
 
     public String toString()
     {
-        String state = super.toString();
-        state += "BANK ACCOUNT BALANCE: " + super.getValue() + "\n";
+        String state = "BANK ACCOUNT BALANCE: " + super.getValue() + "\n";
         return state;
     }
 //---------------------------------------------------------------------------

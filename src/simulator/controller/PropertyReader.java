@@ -67,19 +67,19 @@ public class PropertyReader extends ReaderTemplate
 
 
         // Check if owner exists from map, set to null if no owner
-        if ( fields[2].equals("") )
-            owner = null;
-        else
+        if ( !fields[2].equals("") )
         {
             owner = control.getProperty( fields[2] );
             if ( owner == null )
                 throw new IllegalArgumentException("Property Owner Invalid");
             if ( !(owner instanceof Company) )
                 throw new IllegalArgumentException("Property Owner must be a Company");
+
+            // Set owner field AND update map of the owner
+            newProp.setOwner( (Company)owner );
+            ((Company)owner).addProperty( fields[0], newProp );
         }
 
-        // Set owner field
-        newProp.setOwner( (Company)owner );
         // Add the new property into the controller
         control.setProperty( fields[0], newProp );
     }

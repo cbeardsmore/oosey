@@ -8,7 +8,8 @@
 ***************************************************************************/
 package simulator.view;
 
-import simulator.model.*;
+import java.util.Map;
+import simulator.model.property.*;
 import simulator.controller.*;
 
 public class PrimaryView
@@ -19,9 +20,36 @@ public class PrimaryView
 
 //---------------------------------------------------------------------------
 
-    public void output(String outputString)
+    public void companyOutput( int year, Map<String,Property> propMap )
     {
-        System.out.println(outputString);
+        System.out.println("----------------------------------\n");
+        System.out.println( "YEAR: " + year + "\n" );
+        System.out.print( "PRIMARY "  );
+        for ( Map.Entry<String,Property> entry : propMap.entrySet() )
+        {
+            Property next = entry.getValue();
+            if ( ( next != null ) && ( next instanceof Company ) )
+            {
+                Company nextCompany = (Company)next;
+                System.out.println( "COMPANY: " + nextCompany.getName() );
+                System.out.println( "BALANCE: " + nextCompany.getBank().getValue() + "\n" );
+            }
+        }
+    }
+
+//---------------------------------------------------------------------------
+
+    public void debugOutput( int year, Map<String,Property> propMap )
+    {
+        System.out.println( "YEAR: " + year + "\n" );
+        System.out.print( "PRIMARY "  );
+        for ( Map.Entry<String,Property> entry : propMap.entrySet() )
+        {
+            Property next = entry.getValue();
+            if ( next != null )
+                System.out.println( next.toString() );
+        }
+        System.out.println("----------------------------------\n");
     }
 
 //---------------------------------------------------------------------------

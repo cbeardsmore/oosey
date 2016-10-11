@@ -50,7 +50,6 @@ public class Simulator
             reader.readFile( planFile );
 
             control.run( startYear, endYear );
-            view.output( control.toString() );
         }
         catch( IllegalArgumentException e )
         {

@@ -50,9 +50,23 @@ public class Controller
 
     public void run( int start, int end )
     {
-        for ( int ii = start; ii <= end; ii++ )
+        for ( int ii = start; ii <= start; ii++ )
         {
-            
+            // Step 1: Update profits of companies Bank Accounts
+            for ( Map.Entry<String,Property> entry : propMap.entrySet() )
+            {
+                Property next = entry.getValue();
+                // Only update profit if not null
+                if ( ( next != null ) && ( next instanceof Company ) )
+                    next.calcProfit();
+            }
+
+            // Step 2: Output Company Information
+            //view.companyOutput( ii, propMap );
+            //view.debugOutput( ii, propMap );
+
+            Property amazing = propMap.get("AmazingCorp");
+            System.out.println( amazing.toString() );
         }
     }
 
