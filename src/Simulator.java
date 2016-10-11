@@ -22,23 +22,24 @@ public class Simulator
         if ( args.length != 5 )
         {
             System.err.println("INVALID COMMAND LINE ARGUMENTS");
-            System.err.println("SEE README FOR ARGUMENT FORMAT");
+            System.err.println("SEE README FOR ARGUMENT FORMAT\n");
             System.exit(1);
         }
 
         // Parse arguments
         try
         {
+            PrimaryView view = new PrimaryView();
+            Controller control = new Controller( view );
+            PlanFactory planFact = new PlanFactory();
+            EventFactory eventFact = new EventFactory();
+            view.welcome();
+
             int startYear = Integer.parseInt( args[0] );
             int endYear = Integer.parseInt( args[1] );
             String propertyFile = args[2];
             String eventFile = args[3];
             String planFile = args[4];
-
-            PrimaryView view = new PrimaryView();
-            Controller control = new Controller( view );
-            PlanFactory planFact = new PlanFactory();
-            EventFactory eventFact = new EventFactory();
 
             ReaderTemplate reader = null;
             reader = new PropertyReader( control );
@@ -51,20 +52,18 @@ public class Simulator
             control.run( startYear, endYear );
             view.output( control.toString() );
         }
-        catch( NumberFormatException e )
-        {
-            System.err.println("START YEAR/END YEAR INVALID");
-            System.exit(1);
-        }
         catch( IllegalArgumentException e )
         {
-            System.err.println("END YEAR NOT AFTER START YEAR");
+            System.err.println("INVALID FILE FORMAT: " + e.getMessage() + "\n");
             System.exit(1);
         }
         catch (IOException e)
         {
-            System.err.println( "FILE READING ERROR: " + e.getMessage() );
+            System.err.println( "FILE READING ERROR: " + e.getMessage() + "\n" );
         }
+
+        // Formatting stuffs
+        System.out.println("----------------------------------\n");
     }
 
 //---------------------------------------------------------------------------

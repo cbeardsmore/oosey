@@ -64,7 +64,8 @@ public abstract class Event
         String state = "EVENT" + "\n";
         state += "YEAR: " + year + "\n";
         state += "INCREASE: " + increase + "\n";
-        state += "AFFECTED: " + affected.getName() + "\n";
+        if ( affected != null )
+            state += "AFFECTED: " + affected.getName() + "\n";
         return state;
     }
 //---------------------------------------------------------------------------

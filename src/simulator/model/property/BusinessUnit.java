@@ -11,14 +11,15 @@ package simulator.model.property;
 public class BusinessUnit extends Property implements WageObserver
 {
     //CLASSFIELDS
-    private int revenue;
-    private int wages;
+    private double revenue;
+    private double wages;
+    public static final double WAGE_CHANGE = 0.05;
 
 //---------------------------------------------------------------------------
-    //IMPORT: inRevenue (int), inWages (int)
+    //IMPORT: inRevenue (double), inWages (double)
     //PURPOSE: Initialise classfields to imported values
 
-    public BusinessUnit( int inRevenue, int inWages )
+    public BusinessUnit( double inRevenue, double inWages )
     {
         super();
         revenue = inRevenue;
@@ -27,14 +28,14 @@ public class BusinessUnit extends Property implements WageObserver
 //---------------------------------------------------------------------------
     //Setters
 
-    public void setRevenue( int inRevenue ) { revenue = inRevenue; }
-    public void setWages( int inWages ) { wages = inWages; }
+    public void setRevenue( double inRevenue ) { revenue = inRevenue; }
+    public void setWages( double inWages ) { wages = inWages; }
 
 //---------------------------------------------------------------------------
     //Getters
 
-    public int getRevenue() { return revenue; }
-    public int getWages()   { return wages; }
+    public double getRevenue() { return revenue; }
+    public double getWages()   { return wages; }
 
 //---------------------------------------------------------------------------
     //NAME: toString
@@ -67,9 +68,9 @@ public class BusinessUnit extends Property implements WageObserver
     public void updateWage( boolean isIncrease )
     {
         if ( isIncrease )
-            wages = (int)(1.05 * (double)wages);
+            wages = ( 1.0 + WAGE_CHANGE ) * wages;
         else
-            wages = (int)(0.95 * (double)wages);
+            wages = ( 1.0 - WAGE_CHANGE ) * wages;
     }
 
 //---------------------------------------------------------------------------

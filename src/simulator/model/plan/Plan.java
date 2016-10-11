@@ -35,6 +35,18 @@ public abstract class Plan
     }
 
 //---------------------------------------------------------------------------
+    //Getters
+
+    public int getYear() { return year; }
+    public Property getProp() { return prop; }
+
+//---------------------------------------------------------------------------
+    // Setters
+
+    public void setYear( int inYear ) { year = inYear; }
+    public void setProp( Property inProp ) { prop = inProp; }
+
+//---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)
     //PURPOSE: Export state in readable String format

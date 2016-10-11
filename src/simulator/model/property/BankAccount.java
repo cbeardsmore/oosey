@@ -41,10 +41,10 @@ public class BankAccount extends Property
     public void calcProfit()
     {
         // Interest is 5% of the balance
-        int balance = super.getValue();
-        int interestAmount = (int)(INTEREST * (double)balance);
+        double balance = super.getValue();
+        double interestAmount = INTEREST * balance;
         // +ve interest for +ve balance and vice versa
-        if ( balance > 0 )
+        if ( balance >= 0.0 )
             balance += interestAmount;
         else
             balance -= interestAmount;

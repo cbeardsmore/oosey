@@ -31,17 +31,48 @@ public class EventReader extends ReaderTemplate
         Event newEvent = null;
         Property affected = null;
         boolean increase = false;
+        int year;
+        char type;
 
-        // Parse year field
-        int year = Integer.parseInt( fields[0] );
+        // Check length of fields
+        if ( ( fields.length != 2 ) && ( fields.length != 3 ) )
+            throw new IllegalArgumentException("Event File Data Missing");
+
+        // Parse year field and rethrow as less specific exception
+        try
+        {
+            year = Integer.parseInt( fields[0] );
+        }
+        catch ( NumberFormatException e )
+        {
+            throw new IllegalArgumentException("Year in Event file invalid");
+        }
 
         // Get property if name is given
         if ( fields.length == 3 )
+        {
             affected = control.getProperty( fields[2] );
+            if ( affected == null )
+                throw new IllegalArgumentException("Property in Event File does not exist");
+        }
 
         // Specify type and create via factory
-        char type = fields[1].charAt(0);
+        type = fields[1].charAt(0);
+        if ( fields[1].length() != 2 )
+            throw new IllegalArgumentException("Event Type invalid");
+
+        // Get factory to create Event, ensure it created properly
         newEvent = factory.createEvent( type );
+        if ( newEvent == null )
+            throw new IllegalArgumentException("Event Type invalid");
+
+        // Set increase/decrease type of the event
+        if ( fields[1].charAt(1) == '-' )
+            newEvent.setIncrease(false);
+        else if ( fields[1].charAt(1) == '+' )
+            newEvent.setIncrease(true);
+        else
+            throw new IllegalArgumentException("Event Type Invalid");
 
         // Set year and affected property
         newEvent.setYear( year );

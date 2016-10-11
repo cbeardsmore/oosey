@@ -25,4 +25,16 @@ public class PrimaryView
     }
 
 //---------------------------------------------------------------------------
+    //NAME: welcome()
+    //PURPOSE: General Welcome message to user on system startup
+
+    public void welcome()
+    {
+        System.out.println("\n------COMPANY SIMULATOR 2016------");
+        System.out.println("---Connor Beardsmore - 15504319---");
+        System.out.println("----------------------------------\n");
+
+    }
+
+//---------------------------------------------------------------------------
 }

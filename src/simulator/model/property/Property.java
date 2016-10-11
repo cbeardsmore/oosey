@@ -11,15 +11,21 @@ package simulator.model.property;
 public abstract class Property
 {
     //CONSTANTS
-    public static final int DEFAULT_PROFIT = 0;
-    public static final int DEFAULT_VALUE = 0;
+    public static final double DEFAULT_PROFIT = 0.0;
+    public static final double DEFAULT_VALUE = 0.0;
 
     //CLASSFIELDS
     private String name;
     private Company owner;
-    private int value;
-    private int profit;
+    private double value;
+    private double profit;
 //---------------------------------------------------------------------------
+
+    // ABSTRACT caclProfit() METHOD
+    public abstract void calcProfit();
+
+//---------------------------------------------------------------------------
+
     //PURPOSE: Used to initialise profit field
 
     public Property()
@@ -45,10 +51,10 @@ public abstract class Property
     //IMPORT: value to set
     //PURPOSE: Set classfield equal to the imported value
 
-    public void setName( String inName )    { name = inName; }
-    public void setOwner( Company inOwner ) { owner = inOwner; }
-    public void setValue( int inValue )     { value = inValue; }
-    public void setProfit( int inProfit )   { profit = inProfit; }
+    public void setName( String inName )     { name = inName; }
+    public void setOwner( Company inOwner )  { owner = inOwner; }
+    public void setValue( double inValue )   { value = inValue; }
+    public void setProfit( double inProfit ) { profit = inProfit; }
 
 //---------------------------------------------------------------------------
     //NAME: standard getters
@@ -57,8 +63,8 @@ public abstract class Property
 
     public String getName()   { return name; }
     public Company getOwner() { return owner; }
-    public int getValue()     { return value; }
-    public int getProfit()    { return profit; }
+    public double getValue()  { return value; }
+    public double getProfit() { return profit; }
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)

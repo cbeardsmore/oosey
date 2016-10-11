@@ -25,26 +25,61 @@ public class PropertyReader extends ReaderTemplate
     protected void processLine(String[] fields)
     {
         Property newProp = null;
+        Property owner;
+        int revenue;
+        int wages;
+
+        // Check that type is correct length
+        if ( fields[1].length() != 1 )
+            throw new IllegalArgumentException("Property Type Invalid");
+
         // If C, create new Company
         if ( fields[1].charAt(0) == 'C' )
-        {
             newProp = new Company();
-        }
         // If B, create new BusinessUnit with given revenue and wages
+        // Ensure revenue and wages actually exist
         else if ( fields[1].charAt(0) == 'B' )
         {
-            int revenue = Integer.parseInt( fields[4] );
-            int wages = Integer.parseInt( fields[5] );
-            newProp = new BusinessUnit( revenue, wages );
+            try
+            {
+                revenue = Integer.parseInt( fields[4] );
+                wages = Integer.parseInt( fields[5] );
+                newProp = new BusinessUnit( revenue, wages );
+            }
+            catch ( NumberFormatException e )
+            {
+                throw new IllegalArgumentException("Business Revenue/Wages Invalid");
+            }
         }
+        else
+            throw new IllegalArgumentException("Property Type Invalid");
 
         // Set name and value
         newProp.setName( fields[0] );
-        newProp.setValue( Integer.parseInt( fields[3] ) );
+        try
+        {
+            newProp.setValue( Integer.parseInt( fields[3] ) );
+        }
+        catch ( NumberFormatException e )
+        {
+            throw new IllegalArgumentException("Value in Plan File Invalid");
+        }
+
 
         // Check if owner exists from map, set to null if no owner
-        newProp.setOwner( (Company)control.getProperty( fields[2] ) );
+        if ( fields[2].equals("") )
+            owner = null;
+        else
+        {
+            owner = control.getProperty( fields[2] );
+            if ( owner == null )
+                throw new IllegalArgumentException("Property Owner Invalid");
+            if ( !(owner instanceof Company) )
+                throw new IllegalArgumentException("Property Owner must be a Company");
+        }
 
+        // Set owner field
+        newProp.setOwner( (Company)owner );
         // Add the new property into the controller
         control.setProperty( fields[0], newProp );
     }

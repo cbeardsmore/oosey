@@ -82,14 +82,31 @@ public class Company extends Property
     public void calcProfit()
     {
         // First, get bank profit
-        int newProfit = bank.getProfit();
+        double newProfit = bank.getProfit();
         Property nextProp = null;
 
+        // Call all properties in the map
         for ( Map.Entry<String,Property> entry : ownedProps.entrySet() )
         {
             nextProp = entry.getValue();
             if ( nextProp != null )
+            {
+                // Get property to calculate profit, get it as part of this profit
+                nextProp.calcProfit();
                 newProfit += nextProp.getProfit();
+            }
+        }
+
+        // If negative profit, reduce bank account
+        if ( newProfit <= 0.0 )
+        {
+            super.setProfit( 0.0 );
+            bank.setValue( bank.getValue() - newProfit );
+        }
+        else
+        {
+            super.setProfit( 0.5 * newProfit );
+            bank.setValue( bank.getValue() + ( 0.5 * newProfit ) );
         }
 
         super.setProfit( newProfit );
@@ -103,7 +120,7 @@ public class Company extends Property
     public void buys( Property inNew )
     {
         // Put property in the map of owner properties
-        int propValue = inNew.getValue();
+        double propValue = inNew.getValue();
         String name = inNew.getName();
         ownedProps.put( name, inNew );
 
@@ -128,7 +145,7 @@ public class Company extends Property
     public void sells( Property inNew )
     {
         //Remove property from the owned property map
-        int propValue = inNew.getValue();
+        double propValue = inNew.getValue();
         String name = inNew.getName();
         ownedProps.remove( name );
 
