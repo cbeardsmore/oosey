@@ -69,7 +69,7 @@ public class Controller
             performEvents( ii );
 
             // Step 4: Perform Buy/Sell Plans for that year
-            //performPlans( ii );
+            performPlans( ii );
 
         }
     }
@@ -97,6 +97,13 @@ public class Controller
     public Property getProperty(String name)
     {
         return propMap.get(name);
+    }
+
+//---------------------------------------------------------------------------
+
+    public Company getPrimary()
+    {
+        return primary;
     }
 
 //---------------------------------------------------------------------------
@@ -181,7 +188,7 @@ public class Controller
     }
 
 //---------------------------------------------------------------------------
-/*
+
     public void performPlans( int year )
     {
         for ( Plan next : planList )
@@ -190,7 +197,7 @@ public class Controller
                 next.run( this );
         }
     }
-*/
+
 //---------------------------------------------------------------------------
     //NAME: toString()
     //EXPORT: state (String)
@@ -203,7 +210,7 @@ public class Controller
         state += "---------------------\n";
 
         // Print primary Company name
-        state += "PRIMARY: " + primary.getName() + "\n\n";
+        state += ": " + primary.getName() + "\n\n";
 
         // iterate over all values in the property hashmap
         for ( Map.Entry<String,Property> entry : propMap.entrySet() )

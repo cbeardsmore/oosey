@@ -19,10 +19,10 @@ public class ValueEvent extends Event
     }
 
 //---------------------------------------------------------------------------
-    //IMPORT: inYear (int), inIncrease (boolean), inAff (Property)
+    //IMPORT: inYear (int), inIncrease (boolean), inAff (BusinessUnit)
     //PURPOSE: initialise fields to imported values
 
-    public ValueEvent( int inYear, boolean inIncrease, Property inAff )
+    public ValueEvent( int inYear, boolean inIncrease, BusinessUnit inAff )
     {
         super( inYear, inIncrease, inAff );
     }
@@ -34,7 +34,11 @@ public class ValueEvent extends Event
 
     public void run( Controller control )
     {
-
+        Property affected = super.getAffected();
+        if ( super.isIncrease() )
+            affected.setValue( affected.getValue() * ( 1.00 + VALUE_CHANGE ) );
+        else
+            affected.setValue( affected.getValue() * ( 1.00 + VALUE_CHANGE ) );
     }
 
 //---------------------------------------------------------------------------

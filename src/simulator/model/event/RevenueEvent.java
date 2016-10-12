@@ -22,7 +22,7 @@ public class RevenueEvent extends Event
     //IMPORT: inYear (int), inIncrease (boolean), inAff (BusinessUnit)
     //PURPOSE: initialise fields to imported values
 
-    public RevenueEvent( int inYear, boolean inIncrease, Property inAff )
+    public RevenueEvent( int inYear, boolean inIncrease, BusinessUnit inAff )
     {
         super( inYear, inIncrease, inAff );
     }
@@ -34,6 +34,11 @@ public class RevenueEvent extends Event
 
     public void run( Controller control )
     {
+        BusinessUnit affected = (BusinessUnit)super.getAffected();
+        if ( super.isIncrease() )
+            affected.setRevenue( affected.getRevenue() * ( 1.00 + VALUE_CHANGE ) );
+        else
+            affected.setRevenue( affected.getRevenue() * ( 1.00 - VALUE_CHANGE ) );
 
     }
 

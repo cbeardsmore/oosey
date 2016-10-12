@@ -21,7 +21,7 @@ public class WageEvent extends Event
 
     public WageEvent( int inYear, boolean inIncrease )
     {
-        //WageEvent currently doesn't apply to any specific property
+        //WageEvent currently doesn't apply to any specific BusinessUnit
         //Leave as null, in case we have specific WageEvents later
         super( inYear, inIncrease, null );
     }
@@ -29,11 +29,11 @@ public class WageEvent extends Event
 //---------------------------------------------------------------------------
     //NAME: run()
     //IMPORT: control (Controller)
-    //PURPOSE: Perform the Event, updating revenue
+    //PURPOSE: Perform the Event, updating wages
 
     public void run( Controller control )
     {
-
+        control.notifyWages( super.isIncrease() );
     }
 
 //---------------------------------------------------------------------------

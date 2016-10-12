@@ -45,6 +45,16 @@ public class Company extends Property
     }
 
 //---------------------------------------------------------------------------
+    //NAME: removeProperty()
+    //IMPORT: name (String), newProp (Property)
+    //PURPOSE: Remove property from owned companies
+
+    public void removeProperty( String name )
+    {
+        ownedProps.remove( name );
+    }
+
+//---------------------------------------------------------------------------
     //NAME: toString()
     //EXPORT: state (String)
     //PURPOSE: Export state in readable String format
@@ -120,51 +130,6 @@ public class Company extends Property
             super.setProfit( 0.5 * newProfit );
             bank.setValue( bank.getValue() + ( 0.5 * newProfit ) );
         }
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: buys()
-    //IMPORT: inNew (Property)
-    //PURPOSE: Adds new property to this company and updates all fields
-
-    public void buys( Property inNew )
-    {
-        // Put property in the map of owner properties
-        double propValue = inNew.getValue();
-        String name = inNew.getName();
-        ownedProps.put( name, inNew );
-
-        // Decrease the value of this Companys Bank
-        bank.setValue( bank.getValue() - propValue );
-
-        // Increase the value of the selling Companys Bank
-        Company oldOwner = inNew.getOwner();
-        if ( oldOwner != null )
-        {
-            BankAccount oldBank = oldOwner.getBank();
-            oldBank.setValue( oldBank.getValue() + propValue );
-        }
-    }
-
-
-//---------------------------------------------------------------------------
-    //NAME: sells()
-    //IMPORT: inNew (Property)
-    //PURPOSE: Sells property and updates all fields
-
-    public void sells( Property inNew )
-    {
-        //Remove property from the owned property map
-        double propValue = inNew.getValue();
-        String name = inNew.getName();
-        ownedProps.remove( name );
-
-        // Increase the value of this Companys Bank
-        bank.setValue( bank.getValue() + propValue );
-
-        // Set the new owner of the Property as "Unnamed"
-        inNew.setOwner( null );
-
     }
 
 //---------------------------------------------------------------------------

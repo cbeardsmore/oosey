@@ -9,6 +9,7 @@
 package simulator.model.plan;
 
 import simulator.model.property.*;
+import simulator.controller.*;
 
 public class BuyPlan extends Plan
 {
@@ -22,6 +23,23 @@ public class BuyPlan extends Plan
     public BuyPlan( int inYear, Property inProp )
     {
         super( inYear, inProp );
+    }
+
+//---------------------------------------------------------------------------
+
+    public void run( Controller control )
+    {
+        Property prop = super.getProp();
+        Company primary = control.getPrimary();
+
+        // Put property in the map of primary company
+        double propValue = prop.getValue();
+        String name = prop.getName();
+        primary.addProperty( name, prop );
+
+        // Decrease the value of primary companys bank
+        BankAccount bank = primary.getBank();
+        bank.setValue( bank.getValue() - propValue );
     }
 
 //---------------------------------------------------------------------------

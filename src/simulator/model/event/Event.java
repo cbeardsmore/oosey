@@ -14,7 +14,7 @@ import simulator.controller.*;
 public abstract class Event
 {
     // All events increase/decrease by 5%
-    public static final double valueChange = 0.05;
+    public static final double VALUE_CHANGE = 0.05;
 
     //CLASSFIELDS
     private int year;

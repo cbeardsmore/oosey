@@ -9,12 +9,15 @@
 package simulator.model.plan;
 
 import simulator.model.property.*;
+import simulator.controller.*;
 
 public abstract class Plan
 {
     //CLASSFIELDS
     private int year;
     private Property prop;
+
+    public abstract void run( Controller control );
 
 //---------------------------------------------------------------------------
     //PURPOSE: initialise Plan with default fields
