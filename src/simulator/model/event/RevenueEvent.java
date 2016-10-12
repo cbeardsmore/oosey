@@ -9,6 +9,7 @@
 package simulator.model.event;
 
 import simulator.model.property.*;
+import simulator.controller.*;
 
 public class RevenueEvent extends Event
 {
@@ -24,6 +25,16 @@ public class RevenueEvent extends Event
     public RevenueEvent( int inYear, boolean inIncrease, Property inAff )
     {
         super( inYear, inIncrease, inAff );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: run()
+    //IMPORT: control (Controller)
+    //PURPOSE: Perform the Event, updating revenue
+
+    public void run( Controller control )
+    {
+
     }
 
 //---------------------------------------------------------------------------

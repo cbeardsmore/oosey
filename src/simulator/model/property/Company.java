@@ -120,8 +120,6 @@ public class Company extends Property
             super.setProfit( 0.5 * newProfit );
             bank.setValue( bank.getValue() + ( 0.5 * newProfit ) );
         }
-
-        super.setProfit( newProfit );
     }
 
 //---------------------------------------------------------------------------

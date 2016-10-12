@@ -47,7 +47,8 @@ public class PrimaryView
         {
             Property next = entry.getValue();
             if ( next != null )
-                System.out.println( next.toString() );
+                if ( ( next.getOwner() != null ) || ( next instanceof Company ) )
+                    System.out.println( next.toString() );
         }
         System.out.println("----------------------------------\n");
     }

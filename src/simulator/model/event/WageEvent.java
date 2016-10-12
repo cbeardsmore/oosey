@@ -8,6 +8,8 @@
 ***************************************************************************/
 package simulator.model.event;
 
+import simulator.controller.*;
+
 public class WageEvent extends Event
 {
     public WageEvent()
@@ -22,6 +24,16 @@ public class WageEvent extends Event
         //WageEvent currently doesn't apply to any specific property
         //Leave as null, in case we have specific WageEvents later
         super( inYear, inIncrease, null );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: run()
+    //IMPORT: control (Controller)
+    //PURPOSE: Perform the Event, updating revenue
+
+    public void run( Controller control )
+    {
+
     }
 
 //---------------------------------------------------------------------------

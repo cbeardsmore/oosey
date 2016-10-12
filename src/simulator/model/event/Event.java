@@ -9,6 +9,7 @@
 package simulator.model.event;
 
 import simulator.model.property.*;
+import simulator.controller.*;
 
 public abstract class Event
 {
@@ -19,6 +20,9 @@ public abstract class Event
     private int year;
     private boolean increase;
     private Property affected;
+
+    //Abstract strategy method
+    public abstract void run( Controller control );
 
 //---------------------------------------------------------------------------
     //PURPOSE: initialise Event with given fields

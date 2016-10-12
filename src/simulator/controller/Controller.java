@@ -63,10 +63,14 @@ public class Controller
 
             // Step 2: Output Company Information
             //view.companyOutput( ii, propMap );
-            //view.debugOutput( ii, propMap );
+            view.debugOutput( ii, propMap );
 
-            Property amazing = propMap.get("AmazingCorp");
-            System.out.println( amazing.toString() );
+            // Step 3: Events take place for that year
+            performEvents( ii );
+
+            // Step 4: Perform Buy/Sell Plans for that year
+            //performPlans( ii );
+
         }
     }
 
@@ -165,6 +169,28 @@ public class Controller
             observer.updateWage( isIncrease );
     }
 
+//---------------------------------------------------------------------------
+
+    public void performEvents( int year )
+    {
+        for ( Event next : eventList )
+        {
+            if ( next.getYear() == year )
+                next.run( this );
+        }
+    }
+
+//---------------------------------------------------------------------------
+/*
+    public void performPlans( int year )
+    {
+        for ( Plan next : planList )
+        {
+            if ( next.getYear() == year )
+                next.run( this );
+        }
+    }
+*/
 //---------------------------------------------------------------------------
     //NAME: toString()
     //EXPORT: state (String)
