@@ -3,7 +3,7 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: Event model
-*   LAST MOD: 28/09/16
+*   LAST MOD: 12/10/16
 *   REQUIRES: NONE
 ***************************************************************************/
 package simulator.model.event;
@@ -13,29 +13,36 @@ import simulator.controller.*;
 
 public abstract class Event
 {
-    // All events increase/decrease by 5%
+    // All events increase/decrease the given field by 5%
     public static final double VALUE_CHANGE = 0.05;
+    public static final int DEFAULT_YEAR = -1;
 
     //CLASSFIELDS
     private int year;
     private boolean increase;
+
+    // Wage events don't have affected properties currently
+    // Leave in superclass in case Wages alter in future
     private Property affected;
 
-    //Abstract strategy method
+//---------------------------------------------------------------------------
+    //STRATEGY METHOD. WILL BE IMPLEMENTED IN THE SUBCLASSES
+    //RUNS THE EVENT AND UPDATES THE CONTROLLER FIELDS AS REQUIRED
+
     public abstract void run( Controller control );
 
 //---------------------------------------------------------------------------
-    //PURPOSE: initialise Event with given fields
+    //DEFAULT CONSTRUCTOR
 
     public Event()
     {
-        year = -1;
+        year = DEFAULT_YEAR;
         increase = false;
         affected = null;
     }
 
 //---------------------------------------------------------------------------
-    //PURPOSE: initialise Event with given fields
+    //ALTERNATE CONSTRUCTOR
 
     public Event( int inYear, boolean inIncrease, Property inAff )
     {
@@ -45,14 +52,14 @@ public abstract class Event
     }
 
 //---------------------------------------------------------------------------
-    //Getters
+    //GETTERS
 
     public int getYear() { return year; }
     public boolean isIncrease() { return increase; }
     public Property getAffected() { return affected; }
 
 //---------------------------------------------------------------------------
-    //Setters
+    //SETTERS
 
     public void setYear( int inYear ) { year = inYear; }
     public void setIncrease( boolean inInc ) { increase = inInc; }

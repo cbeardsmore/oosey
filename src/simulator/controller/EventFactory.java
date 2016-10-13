@@ -3,7 +3,7 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: Factory to create Event objects
-*   LAST MOD: 28/09/16
+*   LAST MOD: 15/10/16
 *   REQUIRES: Event
 ***************************************************************************/
 package simulator.controller;
@@ -12,7 +12,11 @@ import simulator.model.event.*;
 
 public class EventFactory
 {
+//---------------------------------------------------------------------------
+    //DEFAULT CONSTRUCTOR
+
     public EventFactory() {}
+
 //---------------------------------------------------------------------------
     //NAME: createEvent()
     //IMPORT: type (char)

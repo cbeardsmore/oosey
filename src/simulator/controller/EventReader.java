@@ -2,8 +2,8 @@
 *	FILE: EventReader.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: Take event fiels and process into an event object
-*   LAST MOD: 28/09/16
+*	PURPOSE: Take event fields and process into an event object
+*   LAST MOD: 10/10/16
 *   REQUIRES: Property
 ***************************************************************************/
 package simulator.controller;
@@ -15,6 +15,9 @@ public class EventReader extends ReaderTemplate
 {
     //CLASSFIELDS
     private EventFactory factory;
+
+//---------------------------------------------------------------------------
+    //ALTERNATE CONSTRUCTOR
 
     public EventReader( Controller inControl, EventFactory inFactory )
     {
@@ -42,6 +45,9 @@ public class EventReader extends ReaderTemplate
         try
         {
             year = Integer.parseInt( fields[0] );
+            // Ensure event in chronilogical order
+            if ( year < control.currentEventYear() )
+                throw new IllegalArgumentException("Events Not Chronological");
         }
         catch ( NumberFormatException e )
         {

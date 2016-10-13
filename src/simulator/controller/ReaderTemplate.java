@@ -13,7 +13,7 @@ import simulator.model.*;
 
 public abstract class ReaderTemplate
 {
-    // Link to controller, so reader method can add objects into containers
+    // Enables read method to add objects into controller
     protected Controller control;
 
 //---------------------------------------------------------------------------
@@ -41,6 +41,7 @@ public abstract class ReaderTemplate
             while (line != null)
             {
                 processLine( line.split(",") );
+                // Pass in split line to reader to parse
                 line = br.readLine();
             }
 			fs.close();
@@ -49,7 +50,7 @@ public abstract class ReaderTemplate
 		{
 			if ( fs != null )
 				fs.close();
-			throw new IOException("error reading input file");
+			throw new IOException("Error reading file");
 		}
     }
 

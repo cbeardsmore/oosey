@@ -3,7 +3,7 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: BuyPlan model
-*   LAST MOD: 28/09/16
+*   LAST MOD: 12/10/16
 *   REQUIRES: NONE
 ***************************************************************************/
 package simulator.model.plan;
@@ -13,12 +13,14 @@ import simulator.controller.*;
 
 public class BuyPlan extends Plan
 {
+//---------------------------------------------------------------------------
+    //DEFAULT CONSTRUCTOR
     public BuyPlan()
     {
         super();
     }
 //---------------------------------------------------------------------------
-    //PURPOSE: initialise Plan with given fields
+    //ALTERNATE CONSTRUCTOR
 
     public BuyPlan( int inYear, Property inProp )
     {
@@ -26,9 +28,13 @@ public class BuyPlan extends Plan
     }
 
 //---------------------------------------------------------------------------
+    //NAME: run()
+    //IMPORT: control (Controller)
+    //PURPOSE: Primary company BUYS the property, old owner SELLS
 
     public void run( Controller control )
     {
+        // Get the buyer and the actual property to buy
         Property prop = super.getProp();
         Company primary = control.getPrimary();
 
@@ -36,6 +42,12 @@ public class BuyPlan extends Plan
         double propValue = prop.getValue();
         String name = prop.getName();
         primary.addProperty( name, prop );
+
+        // Reset propertys owner to the new owner (primary company)
+        Company oldOwner = prop.getOwner();
+        if ( oldOwner != null )
+            oldOwner.removeProperty( name );
+        prop.setOwner( primary );
 
         // Decrease the value of primary companys bank
         BankAccount bank = primary.getBank();

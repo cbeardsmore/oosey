@@ -3,7 +3,7 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: Take plan fields and process into a plan object
-*   LAST MOD: 28/09/16
+*   LAST MOD: 10/10/16
 *   REQUIRES: NONE
 ***************************************************************************/
 package simulator.controller;
@@ -16,6 +16,9 @@ public class PlanReader extends ReaderTemplate
     //CLASSFIELDS
     private PlanFactory factory;
     public static final int PLAN_FIELDS = 3;
+
+//---------------------------------------------------------------------------
+    //ALTERNATE CONSTRUCTOR
 
     public PlanReader( Controller inControl, PlanFactory inFactory )
     {
@@ -44,6 +47,9 @@ public class PlanReader extends ReaderTemplate
         try
         {
             year = Integer.parseInt( fields[0] );
+            // Ensure event in chronilogical order
+            if ( year < control.currentPlanYear() )
+                throw new IllegalArgumentException("Events Not Chronological");
         }
         catch ( NumberFormatException e )
         {

@@ -2,8 +2,8 @@
 *	FILE: PropertyReader.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE:
-*   LAST MOD: 28/09/16
+*	PURPOSE: Take property fields and process into a property object
+*   LAST MOD: 10/10/16
 *   REQUIRES: Property
 ***************************************************************************/
 package simulator.controller;
@@ -12,6 +12,9 @@ import simulator.model.property.*;
 
 public class PropertyReader extends ReaderTemplate
 {
+//---------------------------------------------------------------------------
+    //ALTERNATE CONSTRUCTOR
+
     public PropertyReader( Controller inControl )
     {
         control = inControl;

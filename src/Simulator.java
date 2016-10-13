@@ -3,9 +3,10 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: Main method to kickstart simulation
-*   LAST MOD: 28/09/16
-*   REQUIRES:
+*   LAST MOD: 11/10/16
+*   REQUIRES: java.io.*, model.*, controller.*, view.*
 ***************************************************************************/
+
 import java.io.*;
 import simulator.model.event.*;
 import simulator.model.plan.*;
@@ -15,6 +16,8 @@ import simulator.view.*;
 
 public class Simulator
 {
+//---------------------------------------------------------------------------
+
     public static void main( String[] args )
     {
         //CLA FORMAT: start year, end year, property file, event file, plan file
@@ -26,21 +29,26 @@ public class Simulator
             System.exit(1);
         }
 
-        // Parse arguments
+
         try
         {
+            // Construct objects and factories
             PrimaryView view = new PrimaryView();
             Controller control = new Controller( view );
             PlanFactory planFact = new PlanFactory();
             EventFactory eventFact = new EventFactory();
+
+            // Welcome text/menu
             view.welcome();
 
+            // Parse arguments
             int startYear = Integer.parseInt( args[0] );
             int endYear = Integer.parseInt( args[1] );
             String propertyFile = args[2];
             String eventFile = args[3];
             String planFile = args[4];
 
+            // Read all 3 files using template method pattern
             ReaderTemplate reader = null;
             reader = new PropertyReader( control );
             reader.readFile( propertyFile );
@@ -49,20 +57,30 @@ public class Simulator
             reader = new PlanReader( control, planFact );
             reader.readFile( planFile );
 
+            // Run simulation
             control.run( startYear, endYear );
+
+            // Completion
+            System.exit(0);
         }
+        // Thrown by parseInt if years are not numbers
+        catch( NumberFormatException e )
+        {
+            System.err.println("INVALID YEARS GIVEN: " + e.getMessage() + "\n");
+            System.exit(1);
+        }
+        // Thrown by file readers if files format is invalid
         catch( IllegalArgumentException e )
         {
             System.err.println("INVALID FILE FORMAT: " + e.getMessage() + "\n");
             System.exit(1);
         }
+        // Thrown by file readers if file IO fails 
         catch (IOException e)
         {
             System.err.println( "FILE READING ERROR: " + e.getMessage() + "\n" );
+            System.exit(1);
         }
-
-        // Formatting stuffs
-        System.out.println("----------------------------------\n");
     }
 
 //---------------------------------------------------------------------------

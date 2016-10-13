@@ -30,7 +30,7 @@ public class Controller
     private PrimaryView view;
 
 //---------------------------------------------------------------------------
-    //PURPOSE: initialise property map as a HashMap
+    //DEFAULT CONSTRUCTOR
 
     public Controller( PrimaryView inView )
     {
@@ -46,31 +46,33 @@ public class Controller
 //---------------------------------------------------------------------------
     //NAME: run()
     //IMPORT: start (int), end (int)
-    //PURPOSE: Like run things and stuff
+    //PURPOSE: Run simulation, outputting via view and doing events + plans
 
     public void run( int start, int end )
     {
-        for ( int ii = start; ii <= start; ii++ )
+        for ( int ii = start; ii <= end; ii++ )
         {
             // Step 1: Update profits of companies Bank Accounts
-            for ( Map.Entry<String,Property> entry : propMap.entrySet() )
+            if ( ii == start )
             {
-                Property next = entry.getValue();
-                // Only update profit if not null
-                if ( ( next != null ) && ( next instanceof Company ) )
-                    next.calcProfit();
+                for ( Map.Entry<String,Property> entry : propMap.entrySet() )
+                {
+                    Property next = entry.getValue();
+                    // Only update profit if not null
+                    if ( ( next != null ) && ( next instanceof Company ) )
+                        next.calcProfit();
+                }
             }
 
             // Step 2: Output Company Information
-            //view.companyOutput( ii, propMap );
-            view.debugOutput( ii, propMap );
+            view.companyOutput( ii, propMap );
+            //view.debugOutput( ii, propMap );
 
             // Step 3: Events take place for that year
             performEvents( ii );
 
             // Step 4: Perform Buy/Sell Plans for that year
             performPlans( ii );
-
         }
     }
 
@@ -100,6 +102,8 @@ public class Controller
     }
 
 //---------------------------------------------------------------------------
+    //NAME: getPrimary()
+    //EXPORT: primary (Company)
 
     public Company getPrimary()
     {
@@ -177,6 +181,35 @@ public class Controller
     }
 
 //---------------------------------------------------------------------------
+    //NAME: currentEventYear()
+    //EXPORT: year (int)
+    //PURPOSE: Get current year in the list, to validate file format
+
+    public int currentEventYear()
+    {
+        // Get last event in the list
+        Event lastEvent = eventList.get( eventList.size() );
+        // Return the year of this event
+        return lastEvent.getYear();
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: currentPlanYear()
+    //EXPORT: year (int)
+    //PURPOSE: Get current year in the list, to validate file format
+
+    public int currentPlanYear()
+    {
+        // Get last pla n in the list
+        Plan lastPlan = planList.get( planList.size() );
+        // Return the year of this plan
+        return lastPlan.getYear();
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: performEvents()
+    //IMPORT: year (int)
+    //PURPOSE: Perform all events in the given year
 
     public void performEvents( int year )
     {
@@ -188,6 +221,9 @@ public class Controller
     }
 
 //---------------------------------------------------------------------------
+    //NAME: performPlans()
+    //IMPORT: year (int)
+    //PURPOSE: Perform all plans in the given year
 
     public void performPlans( int year )
     {

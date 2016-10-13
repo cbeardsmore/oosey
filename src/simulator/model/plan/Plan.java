@@ -2,9 +2,9 @@
 *	FILE: Plan.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
-*	PURPOSE: Plan model
-*   LAST MOD: 28/09/16
-*   REQUIRES: NONE
+*	PURPOSE: Abstract Plan Model
+*   LAST MOD: 12/10/16
+*   REQUIRES:
 ***************************************************************************/
 package simulator.model.plan;
 
@@ -17,9 +17,14 @@ public abstract class Plan
     private int year;
     private Property prop;
 
+//---------------------------------------------------------------------------
+    //STRATEGY METHOD. WILL BE IMPLEMENTED IN THE SUBCLASSES
+    //RUNS THE PLAN AND UPDATES THE CONTROLLER FIELDS AS REQUIRED
+
     public abstract void run( Controller control );
 
 //---------------------------------------------------------------------------
+    //DEFAULT CONSTRUCTOR
     //PURPOSE: initialise Plan with default fields
 
     public Plan()
@@ -29,6 +34,7 @@ public abstract class Plan
     }
 
 //---------------------------------------------------------------------------
+    //ALTERNATE CONSTRUCTOR
     //PURPOSE: initialise Plan with given fields
 
     public Plan( int inYear, Property inProp )
@@ -38,13 +44,13 @@ public abstract class Plan
     }
 
 //---------------------------------------------------------------------------
-    //Getters
+    //GETTERS
 
     public int getYear() { return year; }
     public Property getProp() { return prop; }
 
 //---------------------------------------------------------------------------
-    // Setters
+    //SETTERS
 
     public void setYear( int inYear ) { year = inYear; }
     public void setProp( Property inProp ) { prop = inProp; }
@@ -61,5 +67,6 @@ public abstract class Plan
         state += "PROPERTY: " + prop.getName() + "\n";
         return state;
     }
+
 //---------------------------------------------------------------------------
 }

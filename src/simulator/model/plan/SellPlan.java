@@ -3,7 +3,7 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: SellPlan model
-*   LAST MOD: 28/09/16
+*   LAST MOD: 12/10/16
 *   REQUIRES: NONE
 ***************************************************************************/
 package simulator.model.plan;
@@ -13,12 +13,16 @@ import simulator.controller.*;
 
 public class SellPlan extends Plan
 {
+//---------------------------------------------------------------------------
+    //DEFAULT CONSTRUCTOR
+
     public SellPlan()
     {
         super();
     }
+
 //---------------------------------------------------------------------------
-    //PURPOSE: initialise Plan with given fields
+    //ALTERNATE CONSTRUCTOR
 
     public SellPlan( int inYear, Property inProp )
     {
@@ -26,9 +30,13 @@ public class SellPlan extends Plan
     }
 
 //---------------------------------------------------------------------------
+    //NAME: run()
+    //IMPORT: control (Controller)
+    //PURPOSE: Primary company SELLS the property to an unnamed owner
 
     public void run( Controller control )
     {
+        // Get the seller and the actual property to buy
         Property prop = super.getProp();
         Company primary = control.getPrimary();
 

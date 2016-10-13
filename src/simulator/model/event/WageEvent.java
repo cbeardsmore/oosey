@@ -3,7 +3,7 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: WageEvent model
-*   LAST MOD: 28/09/16
+*   LAST MOD: 13/10/16
 *   REQUIRES: NONE
 ***************************************************************************/
 package simulator.model.event;
@@ -12,12 +12,16 @@ import simulator.controller.*;
 
 public class WageEvent extends Event
 {
+//---------------------------------------------------------------------------
+    //DEFAULT CONSTRUCTOR
+
     public WageEvent()
     {
         super();
     }
 
 //---------------------------------------------------------------------------
+    //ALTERNATE CONSTRUCTOR
 
     public WageEvent( int inYear, boolean inIncrease )
     {
@@ -29,7 +33,7 @@ public class WageEvent extends Event
 //---------------------------------------------------------------------------
     //NAME: run()
     //IMPORT: control (Controller)
-    //PURPOSE: Perform the Event, updating wages
+    //PURPOSE: Perform the Event, updating wages via calling "notify"
 
     public void run( Controller control )
     {

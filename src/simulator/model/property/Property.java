@@ -3,30 +3,30 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: Property Model
-*   LAST MOD: 28/09/16
+*   LAST MOD: 14/10/16
 *   REQUIRES: NONE
 ***************************************************************************/
 package simulator.model.property;
 
 public abstract class Property
 {
-    //CONSTANTS
-    public static final double DEFAULT_PROFIT = 0.0;
-    public static final double DEFAULT_VALUE = 0.0;
-
     //CLASSFIELDS
     private String name;
     private Company owner;
     private double value;
     private double profit;
+
+    //CONSTANTS
+    public static final double DEFAULT_PROFIT = 0.0;
+    public static final double DEFAULT_VALUE = 0.0;
+
 //---------------------------------------------------------------------------
 
-    // ABSTRACT caclProfit() METHOD
+    // ABSTRACT STRATEGY METHOD IMPLEMENTED IN THE CHILDREN
     public abstract void calcProfit();
 
 //---------------------------------------------------------------------------
-
-    //PURPOSE: Used to initialise profit field
+    //DEFAULT CONSTRUCTOR
 
     public Property()
     {
@@ -37,7 +37,7 @@ public abstract class Property
     }
 
 //---------------------------------------------------------------------------
-    //PURPOSE: General constructor, given owner and unique name
+    //ALTERNATE CONSTRUCTOR
 
     public Property( String inName, Company inOwner )
     {
@@ -47,9 +47,15 @@ public abstract class Property
     }
 
 //---------------------------------------------------------------------------
-    //NAME: Standard setters
-    //IMPORT: value to set
-    //PURPOSE: Set classfield equal to the imported value
+    //GETTERS
+
+    public String getName()   { return name; }
+    public Company getOwner() { return owner; }
+    public double getValue()  { return value; }
+    public double getProfit() { return profit; }
+
+//---------------------------------------------------------------------------
+    //SETTERS
 
     public void setName( String inName )     { name = inName; }
     public void setOwner( Company inOwner )  { owner = inOwner; }
@@ -57,14 +63,15 @@ public abstract class Property
     public void setProfit( double inProfit ) { profit = inProfit; }
 
 //---------------------------------------------------------------------------
-    //NAME: standard getters
-    //EXPORT: value of classfield
-    //PURPOSE: Export value of classfield asked for
+    //NAME: updateValue()
+    //IMPORT: percent (double)
+    //PURPOSE: Update value via multiplying by given percentage
 
-    public String getName()   { return name; }
-    public Company getOwner() { return owner; }
-    public double getValue()  { return value; }
-    public double getProfit() { return profit; }
+    public void updateValue( double percent )
+    {
+        value *= ( 1 + percent );
+    }
+
 //---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)

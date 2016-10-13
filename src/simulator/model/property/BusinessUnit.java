@@ -3,7 +3,7 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: BusinessUnit Model
-*   LAST MOD: 28/09/16
+*   LAST MOD: 11/10/16
 *   REQUIRES: NONE
 ***************************************************************************/
 package simulator.model.property;
@@ -13,11 +13,20 @@ public class BusinessUnit extends Property implements WageObserver
     //CLASSFIELDS
     private double revenue;
     private double wages;
+
+    //CONSTANTS
     public static final double WAGE_CHANGE = 0.05;
 
 //---------------------------------------------------------------------------
-    //IMPORT: inRevenue (double), inWages (double)
-    //PURPOSE: Initialise classfields to imported values
+    //DEFAULT CONSTRUCTOR
+
+    public BusinessUnit()
+    {
+        super();
+    }
+
+//---------------------------------------------------------------------------
+    //ALTERNATE CONSTRUCTOR
 
     public BusinessUnit( double inRevenue, double inWages )
     {
@@ -25,17 +34,50 @@ public class BusinessUnit extends Property implements WageObserver
         revenue = inRevenue;
         wages = inWages;
     }
+
 //---------------------------------------------------------------------------
-    //Setters
+    //GETTERS
+
+    public double getRevenue() { return revenue; }
+    public double getWages()   { return wages; }
+
+//---------------------------------------------------------------------------
+    //SETTERS
 
     public void setRevenue( double inRevenue ) { revenue = inRevenue; }
     public void setWages( double inWages ) { wages = inWages; }
 
 //---------------------------------------------------------------------------
-    //Getters
+    //NAME: updateRevenue()
+    //IMPORT: percent (double)
+    //PURPOSE: Update revenue via multiplying by given percentage
 
-    public double getRevenue() { return revenue; }
-    public double getWages()   { return wages; }
+    public void updateRevenue( double percent )
+    {
+        revenue *= ( 1 + percent );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: calcProfit()
+    //PURPOSE: Calculate profit for the year as revnue - wages
+
+    public void calcProfit()
+    {
+        super.setProfit( revenue - wages );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: updateWage()
+    //IMPORT: isIncrease (boolean)
+    //PURPOSE: Update wages based on an occuring wage event
+
+    public void updateWage( boolean isIncrease )
+    {
+        if ( isIncrease )
+            wages *= ( 1.0 + WAGE_CHANGE );
+        else
+            wages *= ( 1.0 - WAGE_CHANGE );
+    }
 
 //---------------------------------------------------------------------------
     //NAME: toString
@@ -51,27 +93,5 @@ public class BusinessUnit extends Property implements WageObserver
         return state;
     }
 
-//---------------------------------------------------------------------------
-    //NAME: calcProfit()
-    //PURPOSE: Calculate Bank account profit for the year
-
-    public void calcProfit()
-    {
-        super.setProfit( revenue - wages );
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: updateWage()
-    //IMPORT: isIncrease (boolean)
-    //PURPOSE: Update wages based on an occuring wage event
-
-    public void updateWage( boolean isIncrease )
-    {
-        if ( isIncrease )
-            wages = ( 1.0 + WAGE_CHANGE ) * wages;
-        else
-            wages = ( 1.0 - WAGE_CHANGE ) * wages;
-    }
-
-//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------    
 }

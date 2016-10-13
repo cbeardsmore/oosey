@@ -3,13 +3,11 @@
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: Company Model
-*   LAST MOD: 28/09/16
-*   REQUIRES: Property, List
+*   LAST MOD: 11/10/16
+*   REQUIRES: Map, HashMap
 ***************************************************************************/
 package simulator.model.property;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -20,16 +18,18 @@ public class Company extends Property
     private BankAccount bank;
 
 //---------------------------------------------------------------------------
-    //PURPOSE: Initialise classfields, Bank initially null
+    //DEFAULT CONSTRCTOR
 
     public Company()
     {
-        ownedProps = new HashMap<String,Property>();
+        // Hard to avoid the dependency injection here
+        // Makes sense to initialise companys bank here, rather than import
         bank = new BankAccount();
+        ownedProps = new HashMap<String,Property>();
     }
 
 //---------------------------------------------------------------------------
-    //Getters
+    //GETTERS
 
     public Property getProperty(String name) { return ownedProps.get(name); }
     public BankAccount getBank() { return bank; }
@@ -55,32 +55,6 @@ public class Company extends Property
     }
 
 //---------------------------------------------------------------------------
-    //NAME: toString()
-    //EXPORT: state (String)
-    //PURPOSE: Export state in readable String format
-
-    public String toString()
-    {
-        String state = super.toString();
-        state += "TYPE: Company" + "\n";
-        state += bank.toString();
-        state += "OWNED COMPANIES: ";
-
-        if ( ownedProps.isEmpty() )
-            state += "-----";
-
-        for ( Map.Entry<String,Property> entry : ownedProps.entrySet() )
-        {
-            Property next = entry.getValue();
-            if ( next != null )
-                state += " : " + next.getName();
-        }
-
-        state += "\n";
-        return state;
-    }
-
-//---------------------------------------------------------------------------
     //NAME: ownsUnit()
     //IMPORT: name (String)
     //EXPORT: owns (boolean)
@@ -90,7 +64,7 @@ public class Company extends Property
     {
         boolean owns = false;
         Property prop = ownedProps.get(name);
-        // If prop exists in the map, it will not equal to null
+        // If prop is not null, it exists in the map
         if ( prop != null )
             owns = true;
         return owns;
@@ -99,7 +73,7 @@ public class Company extends Property
 
 //---------------------------------------------------------------------------
     //NAME: calcProfit()
-    //PURPOSE: Calculate Bank account profit for the year
+    //PURPOSE: Calculate Company profit for the year iteratively
 
     public void calcProfit()
     {
@@ -113,7 +87,7 @@ public class Company extends Property
             nextProp = entry.getValue();
             if ( nextProp != null )
             {
-                // Get property to calculate profit, get it as part of this profit
+                // Get property to calculate profit, add to this profit
                 nextProp.calcProfit();
                 newProfit += nextProp.getProfit();
             }
@@ -125,11 +99,40 @@ public class Company extends Property
             super.setProfit( 0.0 );
             bank.setValue( bank.getValue() - newProfit );
         }
+        // If positive, put half in the bank and halve profit
         else
         {
             super.setProfit( 0.5 * newProfit );
             bank.setValue( bank.getValue() + ( 0.5 * newProfit ) );
         }
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: toString()
+    //EXPORT: state (String)
+    //PURPOSE: Export state in readable String format
+
+    public String toString()
+    {
+        String state = super.toString();
+        state += "TYPE: Company" + "\n";
+        state += bank.toString();
+        state += "OWNED COMPANIES: ";
+
+        // Owns no companies
+        if ( ownedProps.isEmpty() )
+            state += "-----";
+
+        // Output names of all owned companies
+        for ( Map.Entry<String,Property> entry : ownedProps.entrySet() )
+        {
+            Property next = entry.getValue();
+            if ( next != null )
+                state += " : " + next.getName();
+        }
+
+        state += "\n";
+        return state;
     }
 
 //---------------------------------------------------------------------------

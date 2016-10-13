@@ -12,7 +12,11 @@ import simulator.model.plan.*;
 
 public class PlanFactory
 {
+//---------------------------------------------------------------------------
+    //DEFAULT CONSTRUCTOR
+
     public PlanFactory() {}
+        
 //---------------------------------------------------------------------------
     //NAME: createPlan()
     //IMPORT: type (char)
