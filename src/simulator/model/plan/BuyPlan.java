@@ -46,7 +46,11 @@ public class BuyPlan extends Plan
         // Reset propertys owner to the new owner (primary company)
         Company oldOwner = prop.getOwner();
         if ( oldOwner != null )
+        {
             oldOwner.removeProperty( name );
+            BankAccount oldBank = oldOwner.getBank();
+            oldBank.setValue( oldBank.getValue() + propValue );
+        }
         prop.setOwner( primary );
 
         // Decrease the value of primary companys bank

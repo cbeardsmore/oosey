@@ -53,7 +53,7 @@ public class Controller
         for ( int ii = start; ii <= end; ii++ )
         {
             // Step 1: Update profits of companies Bank Accounts
-            if ( ii == start )
+            if ( ii != start )
             {
                 for ( Map.Entry<String,Property> entry : propMap.entrySet() )
                 {
@@ -188,9 +188,15 @@ public class Controller
     public int currentEventYear()
     {
         // Get last event in the list
-        Event lastEvent = eventList.get( eventList.size() );
+        int year = 0;
+        Event lastEvent = null;
+        if ( eventList.size() != 0 )
+        {
+            lastEvent = eventList.get( eventList.size() - 1 );
+            year = lastEvent.getYear();
+        }
         // Return the year of this event
-        return lastEvent.getYear();
+        return year;
     }
 
 //---------------------------------------------------------------------------
@@ -200,10 +206,16 @@ public class Controller
 
     public int currentPlanYear()
     {
-        // Get last pla n in the list
-        Plan lastPlan = planList.get( planList.size() );
-        // Return the year of this plan
-        return lastPlan.getYear();
+        // Get last event in the list
+        int year = 0;
+        Plan lastPlan = null;
+        if ( planList.size() != 0 )
+        {
+            lastPlan = planList.get( planList.size() - 1 );
+            year = lastPlan.getYear();
+        }
+        // Return the year of this event
+        return year;
     }
 
 //---------------------------------------------------------------------------
