@@ -20,11 +20,11 @@ public class Company extends Property
 //---------------------------------------------------------------------------
     //DEFAULT CONSTRCTOR
 
-    public Company()
+    public Company( BankAccount inBank )
     {
         // Hard to avoid the dependency injection here
         // Makes sense to initialise companys bank here, rather than import
-        bank = new BankAccount();
+        bank = inBank;
         ownedProps = new HashMap<String,Property>();
     }
 
@@ -58,9 +58,9 @@ public class Company extends Property
     //NAME: ownsUnit()
     //IMPORT: name (String)
     //EXPORT: owns (boolean)
-    //PURPOSE: Returns true if the company owns the imported BusinessUnit
+    //PURPOSE: Returns true if the company owns the imported Property
 
-    public boolean ownsUnit( String name )
+    public boolean owns( String name )
     {
         boolean owns = false;
         Property prop = ownedProps.get(name);
@@ -78,6 +78,7 @@ public class Company extends Property
     public void calcProfit()
     {
         // First, get bank profit
+        bank.calcProfit();
         double newProfit = bank.getProfit();
         Property nextProp = null;
 

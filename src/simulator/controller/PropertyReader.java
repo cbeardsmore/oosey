@@ -38,7 +38,7 @@ public class PropertyReader extends ReaderTemplate
 
         // If C, create new Company
         if ( fields[1].charAt(0) == 'C' )
-            newProp = new Company();
+            newProp = new Company( new BankAccount() );
         // If B, create new BusinessUnit with given revenue and wages
         // Ensure revenue and wages actually exist
         else if ( fields[1].charAt(0) == 'B' )

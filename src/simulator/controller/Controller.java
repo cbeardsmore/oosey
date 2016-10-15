@@ -49,7 +49,7 @@ public class Controller
     //PURPOSE: Run simulation, outputting via view and doing events + plans
 
     public void run( int start, int end )
-    {
+    {    
         for ( int ii = start; ii <= end; ii++ )
         {
             // Step 1: Update profits of companies Bank Accounts

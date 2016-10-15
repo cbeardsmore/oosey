@@ -47,7 +47,7 @@ public class EventReader extends ReaderTemplate
             year = Integer.parseInt( fields[0] );
             // Ensure event in chronilogical order
             if ( year < control.currentEventYear() )
-                throw new IllegalArgumentException("Events Not Chronological");
+                throw new IllegalArgumentException("Events Not Chronological");                
         }
         catch ( NumberFormatException e )
         {

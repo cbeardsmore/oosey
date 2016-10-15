@@ -38,6 +38,9 @@ public class BuyPlan extends Plan
         Property prop = super.getProp();
         Company primary = control.getPrimary();
 
+        if ( primary.owns( prop.getName() ) )
+            throw new IllegalArgumentException("Company cannot buy property it owns");
+
         // Put property in the map of primary company
         double propValue = prop.getValue();
         String name = prop.getName();
