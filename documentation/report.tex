@@ -37,12 +37,11 @@
 		\vspace{1cm}
 		\break
 		\Large\textbf{Connor Beardsmore - 15504319} 
-
-		\vspace{3cm}
+		\vspace{2cm}
 		\begin{figure}[H]
 			\begin{center}
-				{\transparent{0.5} 
-					\includegraphics[height=0.3\textheight,width=0.8\textwidth]{placeholder.png}}
+				{\transparent{0.7} 
+					\includegraphics[height=0.4\textheight,width=0.7\textwidth]{placeholder.png}}
 			\end{center}
 		\end{figure}
 
@@ -67,22 +66,50 @@
 
 \vspace*{0.8cm}
 \section*{Polymorphism}
-adsdsaadsa
+
+\begin{itemize}
+	\item Property - kept in map, polymorphically call calcProfit() via strategy
+	\item Events + Plan - both use strategy so can call run() on parent class
+	\item WageObserver list allows ANY class to become an observer if it implements
+\end{itemize}
 
 %-------------------------------------------------------------------------------
 
 \section*{Design Pattern Implemented}
-adsdsaadsa
+
+\begin{itemize}
+	\item Factory - for Events and Plans
+	\item Dependency Injection - import objects, new in main, no statics
+	\item MVC - overall layout, multiple controllers
+	\item Observer - wage observer for global updates
+	\item Composite - company owns other companies, tree structure for profit
+	\item Template Method - file reading, common code for opening/closing files
+	\item Strategy - plans.run(), events.run() and property.calcProfit()
+	\item Iterator - for loops are sick, even if super inefficient
+\end{itemize}
 
 %-------------------------------------------------------------------------------
 
 \section*{Testability}
-adsdsaadsa
+
+\begin{itemize}
+	\item Test cases!! sample outputs to clear up order ambiguity
+	\item Factory  + Dependency Injection allow for easy mocking of objects, low coupling
+	\item Mad toStrings() and debug output methods
+	\item clear and consie exception handling
+	\item tested on heaps of invalid file types for all 3 input files
+\end{itemize}
 
 %-------------------------------------------------------------------------------
 
 \section*{Alternative Design Choices}
-adsdsaadsa
+
+\begin{itemize}
+	\item design is mad extensible and shit due to the patterns used
+	\item Iterators instead of for loops
+	\item Controllers are easy to switch in and out, could have used one bunta controller
+	\item could have used scanner instead of BufferedReader
+\end{itemize}
 
 %-------------------------------------------------------------------------------
 \end{document}   

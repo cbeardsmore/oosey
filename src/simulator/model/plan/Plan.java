@@ -34,7 +34,7 @@ public abstract class Plan
     }
 
 //---------------------------------------------------------------------------
-    //ALTERNATE CONSTRUCTOR
+    //ALTERNATE CONSTRUCTO
     //PURPOSE: initialise Plan with given fields
 
     public Plan( int inYear, Property inProp )

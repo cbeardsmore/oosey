@@ -1,10 +1,10 @@
 /***************************************************************************
-*	FILE: Controller.java
+*	FILE: PropertyController.java
 *	AUTHOR: Connor Beardsmore - 15504319
 *	UNIT: OOSE200
 *	PURPOSE: Main storage and controller for all objects in the system
 *   LAST MOD: 28/09/16
-*   REQUIRES: Property
+*   REQUIRES: NONE
 ***************************************************************************/
 package simulator.controller;
 
@@ -16,9 +16,8 @@ import java.util.Iterator;
 import simulator.model.property.*;
 import simulator.model.event.*;
 import simulator.model.plan.*;
-import simulator.view.*;
 
-public class Controller
+public class PropertyController
 {
     //CLASSFIELDS
     private Map<String,Property> propMap;
