@@ -34,7 +34,10 @@ public class Simulator
         {
             // Construct objects and factories
             PrimaryView view = new PrimaryView();
-            Controller control = new Controller( view );
+            PropertyController propCon = new PropertyController();
+            EventController eventCon = new EventController();
+            PlanController planCon = new PlanController();
+            Controller control = new Controller( view, propCon, eventCon, planCon );
             PlanFactory planFact = new PlanFactory();
             EventFactory eventFact = new EventFactory();
 
@@ -75,8 +78,8 @@ public class Simulator
             System.err.println("INVALID FILE FORMAT: " + e.getMessage() + "\n");
             System.exit(1);
         }
-        // Thrown by file readers if file IO fails 
-        catch (IOException e)
+        // Thrown by file readers if file IO fails
+        catch (IOException e)   // FIX THIS UP NIGGA
         {
             System.err.println( "FILE READING ERROR: " + e.getMessage() + "\n" );
             System.exit(1);

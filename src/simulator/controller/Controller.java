@@ -21,27 +21,32 @@ import simulator.view.*;
 public class Controller
 {
     //CLASSFIELDS
-    private Map<String,Property> propMap;
-    private Company primary;
-    private List<Event> eventList;
-    private List<Plan> planList;
-    private List<WageObserver> observers;
-    private int currentYear;
+    private PropertyController propCon;
+    private EventController eventCon;
+    private PlanController planCon;
     private PrimaryView view;
+    private int currentYear;
 
 //---------------------------------------------------------------------------
     //DEFAULT CONSTRUCTOR
 
-    public Controller( PrimaryView inView )
+    public Controller( PrimaryView inView, PropertyController pc,
+                        EventController ec, PlanController pc2 )
     {
-        propMap = new HashMap<String,Property>();
-        eventList = new ArrayList<Event>();
-        planList = new ArrayList<Plan>();
-        observers = new ArrayList<WageObserver>();
+        propCon = pc;
+        eventCon = ec;
+        planCon = pc2;
         view = inView;
-        primary = null;
         currentYear = 0;
     }
+
+//---------------------------------------------------------------------------
+    //GETTERS
+
+    public PropertyController getPropCon() { return propCon; }
+    public EventController getEventCon() { return eventCon; }
+    public PlanController getPlanCon() { return planCon; }
+    public int getYear() { return currentYear; }
 
 //---------------------------------------------------------------------------
     //NAME: run()
@@ -52,199 +57,22 @@ public class Controller
     {
         for ( int ii = start; ii <= end; ii++ )
         {
-            // Step 1: Update profits of companies Bank Accounts
-            if ( ii != start )
-            {
-                for ( Map.Entry<String,Property> entry : propMap.entrySet() )
-                {
-                    Property next = entry.getValue();
-                    // Only update profit if not null
-                    if ( ( next != null ) && ( next instanceof Company ) )
-                        next.calcProfit();
-                }
-            }
+            // Step 1: Events take place for that year
+            eventCon.performEvents( this, ii );
 
-            // Step 2: Output Company Information
-            view.companyOutput( ii, propMap );
-            //view.debugOutput( ii, propMap );
+            // Step 2: Perform Buy/Sell Plans for that year
+            planCon.performPlans( this, ii );
 
-            // Step 3: Events take place for that year
-            performEvents( ii );
+            // Step 3: Update profits of companies Bank Accounts
+            // Step 4: Update interest of all companies
+            propCon.performProfit();
 
-            // Step 4: Perform Buy/Sell Plans for that year
-            performPlans( ii );
+            // Step 4: Output at the end of year + interest for the previous year
+            view.debugOutput( ii+1, propCon.getPropMap() );
+
         }
     }
 
-//---------------------------------------------------------------------------
-    //NAME: setProperty()
-    //IMPORT: name (String), prop (Property)
-    //PURPOSE: add property and key into the property map
-
-    public void setProperty(String name, Property prop)
-    {
-        propMap.put( name, prop );
-        if ( ( primary == null ) && ( prop instanceof Company ) )
-            primary = (Company)prop;
-        if ( prop instanceof WageObserver )
-            attach( (WageObserver)prop );
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: getProperty()
-    //IMPORT: name (String)
-    //EXPORT: property with specified key (Property)
-    //PURPOSE: Get property with given name from property map
-
-    public Property getProperty(String name)
-    {
-        return propMap.get(name);
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: getPrimary()
-    //EXPORT: primary (Company)
-
-    public Company getPrimary()
-    {
-        return primary;
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: setEvent()
-    //IMPORT: inEvent (Event)
-    //PURPOSE: add event into eventList
-
-    public void setEvent( Event inEvent )
-    {
-        eventList.add( inEvent );
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: getEvents()
-    //EXPORT: iterator over the eventList (Iterator<Event>)
-    //PURPOSE: Get iterator for the eventList
-
-    public Iterator<Event> getEvents()
-    {
-        return eventList.iterator();
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: setPlan()
-    //IMPORT: inPlan (Plan)
-    //PURPOSE: add plan into PlanList
-
-    public void setPlan( Plan inPlan )
-    {
-        planList.add( inPlan );
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: getPlans()
-    //EXPORT: iterator over the planList (Iterator<Plan>)
-    //PURPOSE: Get iterator for the planList
-
-    public Iterator<Plan> getPlans()
-    {
-        return planList.iterator();
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: getObs()
-    //EXPORT: iterator over the observer list
-    //PURPOSE: Get iterator for the observer list
-
-    public Iterator<WageObserver> getObs()
-    {
-        return observers.iterator();
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: attach()
-    //IMPORT: observer (WageObserver)
-    //PURPOSE: Add new observer to the observer list
-
-    public void attach( WageObserver observer )
-    {
-        observers.add( observer );
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: notifyWages()
-    //PURPOSE: Call update on all observers in observer list
-
-    public void notifyWages( boolean isIncrease )
-    {
-        for (WageObserver observer : observers)
-            observer.updateWage( isIncrease );
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: currentEventYear()
-    //EXPORT: year (int)
-    //PURPOSE: Get current year in the list, to validate file format
-
-    public int currentEventYear()
-    {
-        // Get last event in the list
-        int year = 0;
-        Event lastEvent = null;
-        if ( eventList.size() != 0 )
-        {
-            lastEvent = eventList.get( eventList.size() - 1 );
-            year = lastEvent.getYear();
-        }
-        // Return the year of this event
-        return year;
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: currentPlanYear()
-    //EXPORT: year (int)
-    //PURPOSE: Get current year in the list, to validate file format
-
-    public int currentPlanYear()
-    {
-        // Get last event in the list
-        int year = 0;
-        Plan lastPlan = null;
-        if ( planList.size() != 0 )
-        {
-            lastPlan = planList.get( planList.size() - 1 );
-            year = lastPlan.getYear();
-        }
-        // Return the year of this event
-        return year;
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: performEvents()
-    //IMPORT: year (int)
-    //PURPOSE: Perform all events in the given year
-
-    public void performEvents( int year )
-    {
-        for ( Event next : eventList )
-        {
-            if ( next.getYear() == year )
-                next.run( this );
-        }
-    }
-
-//---------------------------------------------------------------------------
-    //NAME: performPlans()
-    //IMPORT: year (int)
-    //PURPOSE: Perform all plans in the given year
-
-    public void performPlans( int year )
-    {
-        for ( Plan next : planList )
-        {
-            if ( next.getYear() == year )
-                next.run( this );
-        }
-    }
 
 //---------------------------------------------------------------------------
     //NAME: toString()
@@ -254,47 +82,13 @@ public class Controller
     public String toString()
     {
          // PRINT ALL PROPERTIES
-        String state = "PROPERTY MAP CONTENTS\n";
-        state += "---------------------\n";
+        String state = "MAIN CONTROLLER:";
+        state += "----------------";
 
-        // Print primary Company name
-        state += ": " + primary.getName() + "\n\n";
-
-        // iterate over all values in the property hashmap
-        for ( Map.Entry<String,Property> entry : propMap.entrySet() )
-        {
-            // only print if the value isn't null
-            if ( entry.getValue() != null )
-                state += entry.getValue().toString() + "\n" ;
-        }
-
-        // PRINT ALL EVENTS
-        state += "\nEVENT LIST CONTENTS\n";
-        state += "-------------------\n";
-        Iterator<Event> eventIter = getEvents();
-        while ( eventIter.hasNext() )
-        {
-            state += eventIter.next().toString() + "\n";
-        }
-
-        // PRINT ALL PLANS
-        state += "\nPLAN LIST CONTENTS\n";
-        state += "------------------\n";
-        Iterator<Plan> planIter = getPlans();
-        while ( planIter.hasNext() )
-        {
-            state += planIter.next().toString() + "\n";
-        }
-
-        // PRINT ALL OBSERVERS
-        state += "\nOBSERVER LIST CONTENTS\n";
-        state += "------------------\n";
-        Iterator<WageObserver> obsIter = getObs();
-        while ( obsIter.hasNext() )
-        {
-            BusinessUnit next = (BusinessUnit)obsIter.next();
-            state += next.toString() + "\n";
-        }
+        state += propCon.toString();
+        state += eventCon.toString();
+        state += planCon.toString();
+        state += "CURRENT YEAR: " + currentYear + "\n";
 
         return state;
     }

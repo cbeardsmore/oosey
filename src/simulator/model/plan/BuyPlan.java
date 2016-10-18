@@ -36,7 +36,7 @@ public class BuyPlan extends Plan
     {
         // Get the buyer and the actual property to buy
         Property prop = super.getProp();
-        Company primary = control.getPrimary();
+        Company primary = control.getPropCon().getPrimary();
 
         if ( primary.owns( prop.getName() ) )
             throw new IllegalArgumentException("Company cannot buy property it owns");

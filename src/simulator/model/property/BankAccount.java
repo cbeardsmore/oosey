@@ -33,12 +33,10 @@ public class BankAccount extends Property
         double interestAmount = INTEREST * balance;
 
         // +ve interest for +ve balance and vice versa
-        if ( balance >= 0.0 )
-            balance += interestAmount;
-        else
-            balance -= interestAmount;
-            
+        balance += interestAmount;
+
         // Set the Bank Property profit value
+        super.setValue( balance );
         super.setProfit( interestAmount );
     }
 

@@ -38,7 +38,7 @@ public class SellPlan extends Plan
     {
         // Get the seller and the actual property to buy
         Property prop = super.getProp();
-        Company primary = control.getPrimary();
+        Company primary = control.getPropCon().getPrimary();
 
         //Remove property from the owned property map
         double propValue = prop.getValue();

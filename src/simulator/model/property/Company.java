@@ -77,9 +77,7 @@ public class Company extends Property
 
     public void calcProfit()
     {
-        // First, get bank profit
-        bank.calcProfit();
-        double newProfit = bank.getProfit();
+        double newProfit = 0.0;
         Property nextProp = null;
 
         // Call all properties in the map
@@ -98,7 +96,7 @@ public class Company extends Property
         if ( newProfit <= 0.0 )
         {
             super.setProfit( 0.0 );
-            bank.setValue( bank.getValue() - newProfit );
+            bank.setValue( bank.getValue() + newProfit );
         }
         // If positive, put half in the bank and halve profit
         else
@@ -106,6 +104,10 @@ public class Company extends Property
             super.setProfit( 0.5 * newProfit );
             bank.setValue( bank.getValue() + ( 0.5 * newProfit ) );
         }
+
+        bank.calcProfit();
+        super.setProfit( super.getProfit() );
+
     }
 
 //---------------------------------------------------------------------------

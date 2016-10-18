@@ -48,7 +48,7 @@ public class PlanReader extends ReaderTemplate
         {
             year = Integer.parseInt( fields[0] );
             // Ensure event in chronilogical order
-            if ( year < control.currentPlanYear() )
+            if ( year < control.getPlanCon().currentPlanYear() )
                 throw new IllegalArgumentException("Events Not Chronological");
         }
         catch ( NumberFormatException e )
@@ -57,7 +57,7 @@ public class PlanReader extends ReaderTemplate
         }
 
         // Get property from controller map, ensure it actually exists
-        prop = control.getProperty( fields[2] );
+        prop = control.getPropCon().getProperty( fields[2] );
         if ( prop == null )
             throw new IllegalArgumentException("Property in Plan does not exist");
 
@@ -76,7 +76,7 @@ public class PlanReader extends ReaderTemplate
         newPlan.setProp( prop );
 
         // Add the new plan to the list of plans in the controller
-        control.setPlan( newPlan );
+        control.getPlanCon().setPlan( newPlan );
     }
 
 //---------------------------------------------------------------------------

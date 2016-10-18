@@ -46,8 +46,8 @@ public class EventReader extends ReaderTemplate
         {
             year = Integer.parseInt( fields[0] );
             // Ensure event in chronilogical order
-            if ( year < control.currentEventYear() )
-                throw new IllegalArgumentException("Events Not Chronological");                
+            if ( year < control.getEventCon().currentEventYear() )
+                throw new IllegalArgumentException("Events Not Chronological");
         }
         catch ( NumberFormatException e )
         {
@@ -57,7 +57,7 @@ public class EventReader extends ReaderTemplate
         // Get property if name is given
         if ( fields.length == 3 )
         {
-            affected = control.getProperty( fields[2] );
+            affected = control.getPropCon().getProperty( fields[2] );
             if ( affected == null )
                 throw new IllegalArgumentException("Property in Event File does not exist");
         }
@@ -85,7 +85,7 @@ public class EventReader extends ReaderTemplate
         newEvent.setAffected( affected );
 
         // Add to event list in controller
-        control.setEvent( newEvent );
+        control.getEventCon().setEvent( newEvent );
     }
 
 //---------------------------------------------------------------------------
