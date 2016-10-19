@@ -18,29 +18,33 @@ public class Simulator
 {
 //---------------------------------------------------------------------------
 
+    public static int NUM_ARGS = 5;
+    public static int ERROR_STATE = 1;
+
+//---------------------------------------------------------------------------
+
     public static void main( String[] args )
     {
         //CLA FORMAT: start year, end year, property file, event file, plan file
         //Check correct number entered
-        if ( args.length != 5 )
+        if ( args.length != NUM_ARGS )
         {
             System.err.println("INVALID COMMAND LINE ARGUMENTS");
             System.err.println("SEE README FOR ARGUMENT FORMAT\n");
-            System.exit(1);
+            System.exit(ERROR_STATE);
         }
 
+        // Construct objects and factories, inject dem dependencies
+        PrimaryView view = new PrimaryView();
+        PropertyController propCon = new PropertyController();
+        EventController eventCon = new EventController();
+        PlanController planCon = new PlanController();
+        Controller control = new Controller( view, propCon, eventCon, planCon );
+        PlanFactory planFact = new PlanFactory();
+        EventFactory eventFact = new EventFactory();
 
         try
         {
-            // Construct objects and factories
-            PrimaryView view = new PrimaryView();
-            PropertyController propCon = new PropertyController();
-            EventController eventCon = new EventController();
-            PlanController planCon = new PlanController();
-            Controller control = new Controller( view, propCon, eventCon, planCon );
-            PlanFactory planFact = new PlanFactory();
-            EventFactory eventFact = new EventFactory();
-
             // Welcome text/menu
             view.welcome();
 
@@ -66,24 +70,23 @@ public class Simulator
             // Completion
             System.exit(0);
         }
-        // Thrown by parseInt if years are not numbers
+        // Thrown by parseInteger() if years are not numbers
         catch( NumberFormatException e )
         {
-            System.err.println("INVALID YEARS GIVEN: " + e.getMessage() + "\n");
-            System.exit(1);
+            view.errorMessage("INVALID YEARS GIVEN: " + e.getMessage() + "\n");
         }
         // Thrown by file readers if files format is invalid
         catch( IllegalArgumentException e )
         {
-            System.err.println("INVALID FILE FORMAT: " + e.getMessage() + "\n");
-            System.exit(1);
+            view.errorMessage("INVALID FILE FORMAT: " + e.getMessage() + "\n");
         }
         // Thrown by file readers if file IO fails
-        catch (IOException e)   // FIX THIS UP NIGGA
+        catch( IOException e )
         {
-            System.err.println( "FILE READING ERROR: " + e.getMessage() + "\n" );
-            System.exit(1);
+            view.errorMessage("FILE READING ERROR: " + e.getMessage() + "\n");
         }
+
+        System.exit( ERROR_STATE );
     }
 
 //---------------------------------------------------------------------------

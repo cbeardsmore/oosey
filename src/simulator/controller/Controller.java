@@ -8,14 +8,6 @@
 ***************************************************************************/
 package simulator.controller;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import simulator.model.property.*;
-import simulator.model.event.*;
-import simulator.model.plan.*;
 import simulator.view.*;
 
 public class Controller
@@ -55,6 +47,7 @@ public class Controller
 
     public void run( int start, int end )
     {
+        // Run from start to end year inclusively
         for ( int ii = start; ii <= end; ii++ )
         {
             // Step 1: Events take place for that year
@@ -64,20 +57,18 @@ public class Controller
             planCon.performPlans( this, ii );
 
             // Step 3: Update profits of companies Bank Accounts
-            // Step 4: Update interest of all companies
+            // Step 4: Update interest of all companies after
             propCon.performProfit();
 
             // Step 4: Output at the end of year + interest for the previous year
-            view.debugOutput( ii+1, propCon.getPropMap() );
-
+            view.companyOutput( ii+1, propCon );
         }
     }
-
 
 //---------------------------------------------------------------------------
     //NAME: toString()
     //EXPORT: state (String)
-    //PURPOSE: Export state in readable String format
+    //PURPOSE: Export state via the controllers toString() methods
 
     public String toString()
     {

@@ -37,7 +37,8 @@ public class WageEvent extends Event
 
     public void run( Controller control )
     {
-        control.getPropCon().notifyWages( super.isIncrease() );
+        PropertyController propCon = control.getPropCon();
+        propCon.notifyWages( super.isIncrease() );
     }
 
 //---------------------------------------------------------------------------

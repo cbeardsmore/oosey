@@ -73,6 +73,16 @@ public abstract class Property
     }
 
 //---------------------------------------------------------------------------
+    //NAME: incrementValue()
+    //IMPORT: increment (double)
+    //PURPOSE: Increment value by increasing by value
+
+    public void incrementValue( double increment )
+    {
+        value += increment;
+    }
+
+//---------------------------------------------------------------------------
     //NAME: toString
     //EXPORT: state (String)
     //PURPOSE: Export state in readable String format

@@ -20,20 +20,25 @@ public class PrimaryView
 
 //---------------------------------------------------------------------------
     //NAME: companyOutput()
-    //IMPORT: year (int), propMap (Map<String,Property>)
+    //IMPORT: year (int), control (PropertyController)
     //PURPOSE: Print out all companies and their balances for a given year
 
-    public void companyOutput( int year, Map<String,Property> propMap )
+    public void companyOutput( int year, PropertyController control )
     {
-        //Primary company will always be the first in the Map,
-        // according to the Java API
-        System.out.println( "YEAR: " + year + "\n" );
-        System.out.print( "PRIMARY "  );
+        // Get models required from the controller
+        Map<String,Property> propMap = control.getPropMap();
+        Company primary = control.getPrimary();
 
+        // Print the current year and Primary Company
+        System.out.println( "\nYEAR: " + year );
+        System.out.print( "PRIMARY: " + primary.getName() + "\n\n" );
+        System.out.println("----------------------------------\n");
+
+        // Iteratore across all companies and output their balances
         for ( Map.Entry<String,Property> entry : propMap.entrySet() )
         {
             Property next = entry.getValue();
-            // Only print if not null and it's a company
+            // Only print if not null and it is a company
             if ( ( next != null ) && ( next instanceof Company ) )
             {
                 // Downcast to allow for getBank() to be called
@@ -43,19 +48,24 @@ public class PrimaryView
             }
         }
 
-        System.out.println("----------------------------------\n");
+        System.out.println("----------------------------------");
     }
 
 //---------------------------------------------------------------------------
     //NAME: debugOutput()
-    //IMPORT: year (int), propMap (Map<String,Property>)
+    //IMPORT: year (int), control (PropertyController)
     //PURPOSE: Print out all properties via their own toString() methods
 
 
-    public void debugOutput( int year, Map<String,Property> propMap )
+    public void debugOutput( int year, PropertyController control )
     {
+        // Get models required from the controller
+        Map<String,Property> propMap = control.getPropMap();
+        Company primary = control.getPrimary();
+
+        // Print the current year and Primary Company
         System.out.println( "YEAR: " + year + "\n" );
-        System.out.print( "PRIMARY "  );
+        System.out.print( "PRIMARY: " + primary.getName() + "\n" );
 
         // Print ALL properties and ALL fields via toString() calls
         for ( Map.Entry<String,Property> entry : propMap.entrySet() )
@@ -64,7 +74,7 @@ public class PrimaryView
             if ( next != null )
                     System.out.println( next.toString() );
         }
-        
+
         System.out.println("----------------------------------\n");
     }
 
@@ -76,8 +86,18 @@ public class PrimaryView
     {
         System.out.println("\n------COMPANY SIMULATOR 2016------");
         System.out.println("---Connor Beardsmore - 15504319---");
-        System.out.println("----------------------------------\n");
+        System.out.println("----------------------------------");
 
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: errorMessage
+    //IMPORT: error (String)
+    //PURPOSE: Error message printed to standard error
+
+    public void errorMessage( String error )
+    {
+        System.err.println( error );
     }
 
 //---------------------------------------------------------------------------

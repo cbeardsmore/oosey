@@ -79,5 +79,6 @@ public abstract class Event
             state += "AFFECTED: " + affected.getName() + "\n";
         return state;
     }
+    
 //---------------------------------------------------------------------------
 }

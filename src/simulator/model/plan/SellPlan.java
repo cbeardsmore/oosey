@@ -43,11 +43,13 @@ public class SellPlan extends Plan
         //Remove property from the owned property map
         double propValue = prop.getValue();
         String name = prop.getName();
+
+        // If primary doesn't own company, exception will be thrown
         primary.removeProperty( name );
 
         // Increase the value of this Companys Bank
         BankAccount bank = primary.getBank();
-        bank.setValue( bank.getValue() + propValue );
+        bank.incrementValue( propValue );
 
         // Set the new owner of the Property as "Unnamed"
         prop.setOwner( null );

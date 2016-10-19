@@ -38,6 +38,7 @@ public class BuyPlan extends Plan
         Property prop = super.getProp();
         Company primary = control.getPropCon().getPrimary();
 
+        // Check primary doesn't already own the property
         if ( primary.owns( prop.getName() ) )
             throw new IllegalArgumentException("Company cannot buy property it owns");
 
@@ -52,13 +53,15 @@ public class BuyPlan extends Plan
         {
             oldOwner.removeProperty( name );
             BankAccount oldBank = oldOwner.getBank();
-            oldBank.setValue( oldBank.getValue() + propValue );
+            oldBank.incrementValue( propValue );
         }
+
+        //Set the new owner
         prop.setOwner( primary );
 
         // Decrease the value of primary companys bank
         BankAccount bank = primary.getBank();
-        bank.setValue( bank.getValue() - propValue );
+        bank.incrementValue( -propValue );
     }
 
 //---------------------------------------------------------------------------

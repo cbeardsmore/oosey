@@ -11,7 +11,7 @@ package simulator.model.property;
 public interface WageObserver
 {
 //---------------------------------------------------------------------------
-    //Method to be implemented in all Observors implementing this interface
+    //Method to be implemented in all Observers implementing this interface
 
     public void updateWage(boolean isIncrease);
 

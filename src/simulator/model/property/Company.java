@@ -47,11 +47,13 @@ public class Company extends Property
 //---------------------------------------------------------------------------
     //NAME: removeProperty()
     //IMPORT: name (String), newProp (Property)
-    //PURPOSE: Remove property from owned companies
+    //PURPOSE: Remove property from owned companies, or exception if doesn't exist
 
     public void removeProperty( String name )
     {
-        ownedProps.remove( name );
+        Property removed = ownedProps.remove( name );
+        if ( removed == null )
+            throw new IllegalArgumentException("Cannot remove property");
     }
 
 //---------------------------------------------------------------------------
@@ -96,18 +98,17 @@ public class Company extends Property
         if ( newProfit <= 0.0 )
         {
             super.setProfit( 0.0 );
-            bank.setValue( bank.getValue() + newProfit );
+            bank.incrementValue( newProfit );
         }
         // If positive, put half in the bank and halve profit
         else
         {
             super.setProfit( 0.5 * newProfit );
-            bank.setValue( bank.getValue() + ( 0.5 * newProfit ) );
+            bank.incrementValue( 0.5 * newProfit );
         }
 
+        // Calculate Bank interest amount
         bank.calcProfit();
-        super.setProfit( super.getProfit() );
-
     }
 
 //---------------------------------------------------------------------------
