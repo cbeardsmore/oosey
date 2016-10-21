@@ -67,6 +67,8 @@
 \vspace*{0.8cm}
 \section*{Polymorphism}
 
+Throughout the Company Simulator, polymorphism is extensively utilized to both generalise and decouple code, leading to increased testability. To allow for the use of polymorphism, both implementation inheritance and interface inheritance has been employed.
+
 \begin{itemize}
 	\item Property - kept in map, polymorphically call calcProfit() via strategy
 	\item Events + Plan - both use strategy so can call run() on parent class
@@ -77,16 +79,37 @@
 
 \section*{Design Pattern Implemented}
 
-\begin{itemize}
-	\item Factory - for Events and Plans
-	\item Dependency Injection - import objects, new in main, no statics
-	\item MVC - overall layout, multiple controllers
-	\item Observer - wage observer for global updates
-	\item Composite - company owns other companies, tree structure for profit
-	\item Template Method - file reading, common code for opening/closing files
-	\item Strategy - plans.run(), events.run() and property.calcProfit()
-	\item Iterator - for loops are sick, even if super inefficient
-\end{itemize}
+\subsubsection*{Factory Method Pattern}
+
+A Factory was employed to encapsulate object instantiation for both the Event and Plan subclasses.
+
+\subsubsection*{Dependency Injection Pattern}
+
+The Dependency Injection pattern worked to remove all hard-coded dependencies, with the primary injector code being located in the main method.
+
+\subsubsection*{Model View Controller Pattern}
+
+The MVC pattern was utilized for the overall layout of the system, due to its flexibility and its strong separation of concerns.
+
+\subsubsection*{Observer Pattern}
+
+An observer was set up for WageEvents, allowing all relevant Property's to be updated easily by the notify method
+
+\subsubsection*{Composite Pattern}
+
+company owns other companies, profit tree structure
+
+\subsubsection*{Template Method Pattern}
+
+The Template Method pattern was used in the reading of the files. The common code for opening and closing files was kept in the superclass, with the subclasses implementing the protected abstract processLine() method.
+
+\subsubsection*{Strategy Pattern}
+
+The run() method located in both Event and Plan subclasses is a form of the strategy pattern, with each subclass implementing this method differently. Also utilizing the Strategy pattern is the calcProfit() method in Property subclasses, as all Properties calculate profit differently.
+
+\subsubsection*{Miscellaneous Patterns}
+
+The use of for each loops throughout the system illustrate a form of the simplistic Iterator pattern. The objects used for file reading utilize the Decorator pattern, however these classes were used from the Java API.
 
 %-------------------------------------------------------------------------------
 
@@ -104,8 +127,10 @@
 
 \section*{Alternative Design Choices}
 
+Despite the design having a high level of testability and maintainability, there are alternative design choices that could have been employed.
+
+\
 \begin{itemize}
-	\item design is mad extensible and shit due to the patterns used
 	\item Iterators instead of for loops
 	\item Controllers are easy to switch in and out, could have used one bunta controller
 	\item could have used scanner instead of BufferedReader

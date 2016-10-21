@@ -86,6 +86,7 @@ public class Simulator
             view.errorMessage("FILE READING ERROR: " + e.getMessage() + "\n");
         }
 
+        // Exception must have occurred
         System.exit( ERROR_STATE );
     }
 
