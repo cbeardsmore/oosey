@@ -12,6 +12,9 @@ import simulator.model.property.*;
 
 public class PropertyReader extends ReaderTemplate
 {
+    // CONSTANTS
+    public static final int PROP_FIELDS = 6;
+
 //---------------------------------------------------------------------------
     //ALTERNATE CONSTRUCTOR
 
@@ -30,37 +33,16 @@ public class PropertyReader extends ReaderTemplate
         PropertyController propCon = control.getPropCon();
         Property newProp = null;
         Property owner;
-        int revenue;
-        int wages;
+        char type;
 
         // Check length of fields
-        if ( fields.length != 6 )
+        if ( fields.length != PROP_FIELDS )
             throw new FileFormatException("Property File Data Missing");
 
-        // Check that type is correct length
-        if ( fields[1].length() != 1 )
-            throw new FileFormatException("Property Type Invalid");
-
-        // If C, create new Company
-        if ( fields[1].charAt(0) == 'C' )
-            newProp = new Company( new BankAccount() );
-        // If B, create new BusinessUnit with given revenue and wages
-        // Ensure revenue and wages actually exist
-        else if ( fields[1].charAt(0) == 'B' )
-        {
-            try
-            {
-                revenue = Integer.parseInt( fields[4] );
-                wages = Integer.parseInt( fields[5] );
-                newProp = new BusinessUnit( revenue, wages );
-            }
-            catch ( NumberFormatException e )
-            {
-                throw new FileFormatException("Business Revenue/Wages Invalid");
-            }
-        }
-        else
-            throw new FileFormatException("Property Type Invalid");
+        // Parse type
+        type = parseType( fields[1] );
+        // Create proeprty based off that type, kinda factory looking thing
+        newProp = createProperty( type, fields );
 
         // Set name and value
         newProp.setName( fields[0] );
@@ -94,6 +76,61 @@ public class PropertyReader extends ReaderTemplate
 
         // Add the new property into the controller
         propCon.setProperty( fields[0], newProp );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: parseType()
+    //IMPORT: typeString (String)
+    //EXPORT: type (char)
+    //PURPOSE: Parse type given the string containing the type
+
+    private char parseType( String typeString ) throws FileFormatException
+    {
+        char type;
+        // Check that type is correct length
+        type = typeString.charAt(0);
+        if ( typeString.length() != 1 )
+            throw new FileFormatException("Property Type Invalid");
+
+        return type;
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: createProperty()
+    //IMPORT: type (char), fields (String[])
+    //EXPORT: newProp (Property)
+    //PURPOSE: Create Property given the fields, either Company or BusinessUnit
+
+    private Property createProperty( char type, String[] fields ) throws FileFormatException
+    {
+        Property newProp = null;
+        int revenue;
+        int wages;
+
+        // If C, create new Company
+        if ( type == 'C' )
+            newProp = new Company( new BankAccount() );
+        // If B, create new BusinessUnit with given revenue and wages
+        // Ensure revenue and wages actually exist
+        else if ( type == 'B' )
+        {
+            try
+            {
+                revenue = Integer.parseInt( fields[4] );
+                wages = Integer.parseInt( fields[5] );
+                newProp = new BusinessUnit( revenue, wages );
+            }
+            // Wrap exception and throw as a more general kind
+            catch ( NumberFormatException e )
+            {
+                throw new FileFormatException("Business Revenue/Wages Invalid");
+            }
+        }
+        // Isn't B or C, must be invalid
+        else
+            throw new FileFormatException("Property Type Invalid");
+
+        return newProp;
     }
 
 //---------------------------------------------------------------------------

@@ -33,7 +33,7 @@ public class PlanReader extends ReaderTemplate
 
     protected void processLine(String[] fields) throws FileFormatException
     {
-        // Declare fields
+        PlanController planCon = control.getPlanCon();
         Plan newPlan = null;
         Property prop = null;
         int year;
@@ -43,40 +43,83 @@ public class PlanReader extends ReaderTemplate
         if ( fields.length != PLAN_FIELDS )
             throw new FileFormatException("Plan File Data Missing");
 
-        // Parse year field and rethrow as less specific exception
-        try
-        {
-            year = Integer.parseInt( fields[0] );
-            // Ensure event in chronilogical order
-            if ( year < control.getPlanCon().currentPlanYear() )
-                throw new FileFormatException("Plans Not Chronological");
-        }
-        catch ( NumberFormatException e )
-        {
-            throw new FileFormatException("Year in Plan file invalid");
-        }
-
-        // Get property from controller map, ensure it actually exists
-        prop = control.getPropCon().getProperty( fields[2] );
-        if ( prop == null )
-            throw new FileFormatException("Property in Plan does not exist");
-
-        // Check validity of transaction type
-        type = fields[1].charAt(0);
-        if ( fields[1].length() != 1 )
-            throw new FileFormatException("Plan Transaction type invalid");
-
         // Get factory to create Plan, ensure it created properly
+        type = parseType( fields[1] );
         newPlan = factory.createPlan( type );
         if ( newPlan == null )
             throw new FileFormatException("Plan Transaction type invalid");
 
-        // Set fields of the default plan object
+        // Parse year field
+        year = parseYear( fields[0] );
         newPlan.setYear( year );
+
+        // Parse Affected
+        prop = parseAffected( fields[2] );
         newPlan.setProp( prop );
 
         // Add the new plan to the list of plans in the controller
-        control.getPlanCon().setPlan( newPlan );
+        planCon.setPlan( newPlan );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: parseYear()
+    //IMPORT: yearString (String)
+    //EXPORT: year (int)
+    //PURPOSE: Parse the year field of the input, checking validity
+
+    private int parseYear( String yearString ) throws FileFormatException
+    {
+        PlanController planCon = control.getPlanCon();
+        int year;
+        // Parse year field and rethrow as less specific exception
+        try
+        {
+            year = Integer.parseInt( yearString );
+            // Ensure event in chronilogical order, sorry Demeter
+            if ( year < planCon.currentPlanYear() )
+                throw new FileFormatException("Plans Not Chronological");
+        }
+        catch ( NumberFormatException e )
+        {
+            // Rethrow, NumberFormatException doesn't provide correct info
+            throw new FileFormatException("Year in Plan file invalid", e);
+        }
+        return year;
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: parseType()
+    //IMPORT: typeString (String)
+    //EXPORT: type (char)
+    //PURPOSE: Parse the type field of the input, checking validity
+
+    private char parseType( String typeString) throws FileFormatException
+    {
+        char type;
+        // Specify type
+        type = typeString.charAt(0);
+        if ( typeString.length() != 1 )
+            throw new FileFormatException("Plan Type invalid");
+        return type;
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: parseAffected()
+    //IMPORT: affString (String)
+    //EXPORT: affected (Property)
+    //PURPOSE: Parse the affected field of the input, checking validity
+
+    private Property parseAffected( String affString) throws FileFormatException
+    {
+        PropertyController propCon = control.getPropCon();
+        Property affected = null;
+
+        // Get affected property, exception if it doesn't exist
+        affected = propCon.getProperty( affString );
+        if ( affected == null )
+            throw new FileFormatException("Property in Plan does not exist");
+
+        return affected;
     }
 
 //---------------------------------------------------------------------------

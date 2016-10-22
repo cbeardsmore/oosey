@@ -15,6 +15,7 @@ public class EventReader extends ReaderTemplate
 {
     //CLASSFIELDS
     private EventFactory factory;
+    public static final int EVENT_FIELDS = 3;
 
 //---------------------------------------------------------------------------
     //ALTERNATE CONSTRUCTOR
@@ -39,7 +40,7 @@ public class EventReader extends ReaderTemplate
         char type;
 
         // Check length of fields
-        if ( fields.length != 3 )
+        if ( fields.length != EVENT_FIELDS )
             throw new FileFormatException("Event File Data Missing");
 
         // Parse the type of object and construct via the factory
@@ -70,7 +71,7 @@ public class EventReader extends ReaderTemplate
     //EXPORT: year (int)
     //PURPOSE: Parse the year field of the input, checking validity
 
-    public int parseYear( String yearString ) throws FileFormatException
+    private int parseYear( String yearString ) throws FileFormatException
     {
         EventController eventCon = control.getEventCon();
         int year;
@@ -96,7 +97,7 @@ public class EventReader extends ReaderTemplate
     //EXPORT: type (char)
     //PURPOSE: Parse the type field of the input, checking validity
 
-    public char parseType( String typeString) throws FileFormatException
+    private char parseType( String typeString) throws FileFormatException
     {
         char type;
         // Specify type
@@ -112,7 +113,7 @@ public class EventReader extends ReaderTemplate
     //EXPORT: isIncrease (boolean)
     //PURPOSE: Parse the increase field of the input, checking validity
 
-    public boolean parseIncrease( String incString) throws FileFormatException
+    private boolean parseIncrease( String incString) throws FileFormatException
     {
         boolean isIncrease;
         // Set increase/decrease type of the event
@@ -126,12 +127,12 @@ public class EventReader extends ReaderTemplate
     }
 
 //---------------------------------------------------------------------------
-    //NAME: parseType()
-    //IMPORT: typeString (String)
+    //NAME: parseAffected()
+    //IMPORT: affString (String)
     //EXPORT: affected (Property)
     //PURPOSE: Parse the affected field of the input, checking validity
 
-    public Property parseAffected( String affString) throws FileFormatException
+    private Property parseAffected( String affString) throws FileFormatException
     {
         PropertyController propCon = control.getPropCon();
         Property affected = null;
