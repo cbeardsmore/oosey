@@ -32,7 +32,6 @@ public class PropertyReader extends ReaderTemplate
     {
         PropertyController propCon = control.getPropCon();
         Property newProp = null;
-        Property owner;
         char type;
 
         // Check length of fields
@@ -43,9 +42,10 @@ public class PropertyReader extends ReaderTemplate
         type = parseType( fields[1] );
         // Create proeprty based off that type, kinda factory looking thing
         newProp = createProperty( type, fields );
-
-        // Set name and value
+        // Set name
         newProp.setName( fields[0] );
+
+        // Set value
         try
         {
             newProp.setValue( Integer.parseInt( fields[3] ) );
@@ -55,20 +55,8 @@ public class PropertyReader extends ReaderTemplate
             throw new FileFormatException("Value in Plan File Invalid");
         }
 
-
-        // Check if owner exists from map, set to null if no owner
-        if ( !fields[2].equals("") )
-        {
-            owner = propCon.getProperty( fields[2] );
-            if ( owner == null )
-                throw new FileFormatException("Property Owner Invalid");
-            if ( !(owner instanceof Company) )
-                throw new FileFormatException("Property Owner must be a Company");
-
-            // Set owner field AND update map of the owner
-            newProp.setOwner( (Company)owner );
-            ((Company)owner).addProperty( fields[0], newProp );
-        }
+        // Set the owner of the new property
+        setOwner( fields[2], newProp );
 
         // Check it doesn't already exist in the map
         if ( propCon.getProperty(fields[0]) != null )
@@ -93,6 +81,30 @@ public class PropertyReader extends ReaderTemplate
             throw new FileFormatException("Property Type Invalid");
 
         return type;
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: setOwner()
+    //IMPORT: ownerName (String), newProp (Property)
+    //PURPOSE: Set the owner of newProp to be that of ownerNamer
+
+    private void setOwner( String ownerName, Property newProp ) throws FileFormatException
+    {
+        PropertyController propCon = control.getPropCon();
+        Property owner = null;
+        // If an owner is actually given
+        if ( !ownerName.equals("") )
+        {
+            owner = propCon.getProperty( ownerName );
+            if ( owner == null )
+                throw new FileFormatException("Property Owner Invalid");
+            if ( !(owner instanceof Company) )
+                throw new FileFormatException("Property Owner must be a Company");
+
+            // Set owner field AND update map of the owner
+            newProp.setOwner( (Company)owner );
+            ((Company)owner).addProperty( newProp.getName(), newProp );
+        }
     }
 
 //---------------------------------------------------------------------------
