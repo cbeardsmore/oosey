@@ -67,7 +67,7 @@
 \vspace*{0.8cm}
 \section*{Polymorphism}
 
-Throughout the Company Simulator, polymorphism is extensively utilized to both generalise and decouple code, leading to increased testability. To allow for the use of polymorphism, both implementation inheritance and interface inheritance has been employed.
+Throughout the Company Simulator, polymorphism is extensively utilized to both generalise and decouple code, leading to increased testability. To allow for the use of polymorphism, both implementation inheritance and interface inheritance has been employed. 
 
 \begin{itemize}
 	\item Property - kept in map, polymorphically call calcProfit() via strategy
@@ -81,28 +81,27 @@ Throughout the Company Simulator, polymorphism is extensively utilized to both g
 
 \subsubsection*{Factory Method Pattern}
 
-A Factory was employed to encapsulate object instantiation for both the Event and Plan subclasses.
+A Factory was employed to encapsulate object instantiation for both the Event and Plan subclasses, allowing the specific subclass type to be hidden from the calling method.
 
 \subsubsection*{Dependency Injection Pattern}
 
-The Dependency Injection pattern worked to remove all hard-coded dependencies, with the primary injector code being located in the main method with al calls to \textit{new} located in either the main or the two Factory classes.
+The Dependency Injection pattern worked to remove all hard-coded dependencies, with the primary injector code being located in the main method with all calls to \textit{new} located in either the main or the two Factory classes.
 
 \subsubsection*{Model View Controller Pattern}
 
-The MVC pattern was utilized for the overall architectural design of the system, due to its flexibility and its strong separation of concerns.
+The MVC \textit{compound} pattern was utilized for the overall architectural design of the system, due to its flexibility and its strong separation of concerns.
 
 \subsubsection*{Observer Pattern}
 
-An observer was set up for WageEvents, allowing all relevant Property's to be updated easily by the notify method
+An observer was set up for WageEvents, allowing all relevant Property's to be updated easily by the notify() method. This also allows future models interested in Wage changes to be easily implemented by simply implementing the Observer interface.
 
 \subsubsection*{Composite Pattern}
 
-The tree of Properties form a version of the Composite pattern, where each Company owns zero or more other Properties. These properties can either be leaf nodes (BusinessUnit) or further composite nodes (Company).
-
+The tree of Properties form a version of the Composite pattern, where each Company owns zero or more other Properties. These properties can either be leaf nodes (BusinessUnit) or further composite nodes (Company). This allows for simple recursive calculation of profit throughout the entire hierarchy.
 
 \subsubsection*{Template Method Pattern}
 
-The Template Method pattern was used in the reading of files. The common code for opening and closing files was kept in the superclass, with the subclasses implementing the protected abstract processLine() method.
+The Template Method pattern was used for file reading. The common code for opening and closing files was kept in the superclass. Since every reader parses each file differently, the subclasses provide their own implementation for the protected abstract processLine() method.
 
 \subsubsection*{Strategy Pattern}
 
@@ -110,11 +109,13 @@ The run() method located in both Event and Plan subclasses is a form of the stra
 
 \subsubsection*{Miscellaneous Patterns}
 
-The use of for each loops throughout the system illustrate a form of the simplistic but ever useful Iterator pattern. While the Decorator pattern was not used in any of the designed classes, the objects used for file reading from the Java API utilize the Decorator pattern.
+The use of for each loops throughout the system illustrate a form of the simplistic but ever useful Iterator pattern. While the Decorator pattern was not used in any of the designed classes, the objects used for file reading from the Java API illustrate an example of the Decorator pattern.
 
 %-------------------------------------------------------------------------------
 
 \section*{Testability}
+
+The heavy use of design patterns and polymorphism produces a system that is easily testable.
 
 \begin{itemize}
 	\item Test cases!! sample outputs to clear up order ambiguity
@@ -128,14 +129,15 @@ The use of for each loops throughout the system illustrate a form of the simplis
 
 \section*{Alternative Design Choices}
 
-Despite the design having a high level of testability and maintainability, there are alternative design choices that could have been employed.
+Despite the design having a high level of testability and maintainability, there are alternative design choices that could have been employed. The main alternative choices are the use of Factories, the controller layouts and ...
 
-\
-\begin{itemize}
-	\item Iterators instead of for loops
-	\item Controllers are easy to switch in and out, could have used one bunta controller
-	\item could have used scanner instead of BufferedReader
-\end{itemize}
+\subsubsection*{Controllers}
+Currently, there is one primary controller and one controller for each major model set. Since the primary controller is passed around, there are numerous calls to get the sub controllers, resulting in breaking the Law of Demeter. Solving this would require extra methods in the primary controller and since the number of calls to getters was minimal, this was not a major concern.
+
+\subsubsection*{Factories}
+Factories were employed for the instantiation of both Event and Plan objects, but not for Property objects. This is due to BusinessUnits having specific fields that are not relevant to a Property object. Thus, to set these fields, the returned Property from the Factory would need to be downcast to be a BusinessUnit. A Factory allows us to instantiate a Property object without knowing its specific type, yet having to downcast voids this principle. This could have been solved by passing the whole String to parse to the Factory, yet this seems to void separation of concerns, as it is the PropertyReader's role to parse the input file.
+
+\subsubsection*{???}
 
 %-------------------------------------------------------------------------------
 \end{document}   
