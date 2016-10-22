@@ -8,4 +8,16 @@
 *.war
 *.ear
 
+# Misc
 .DS_Store
+
+# LaTex
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.toc
+*.synctex.gz
+*.lot
+*.tex.*

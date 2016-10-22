@@ -67,13 +67,11 @@
 \vspace*{0.8cm}
 \section*{Polymorphism}
 
-Throughout the Company Simulator, polymorphism is extensively utilized to both generalise and decouple code, leading to increased testability. To allow for the use of polymorphism, both implementation inheritance and interface inheritance has been employed. 
+Throughout the Company Simulator, polymorphism is extensively utilized to both generalise and decouple code, leading to increased testability. To allow for the use of polymorphism, both implementation inheritance and interface inheritance has been employed. \\
 
-\begin{itemize}
-	\item Property - kept in map, polymorphically call calcProfit() via strategy
-	\item Events + Plan - both use strategy so can call run() on parent class
-	\item WageObserver list allows ANY class to become an observer if it implements
-\end{itemize}
+Utilisation of the Strategy patterns in both Event and Plans allows the context to use the subclasses without knowing their exact types. The use of polymorphism here encapsulates the implementation details, letting each family of algorithms be used interchangeably. The Strategy pattern is also used within Properties, allowing us to call calcProfit() on any Property, without needed to know anything about the actual class or its implementation. This use of polymorphism enhances the code by improving both its extensibility and maintainability, due to the ease at which further subclasses can be extended from the abstract class. As calcProfit() is a given method within any Property or its subclasses, all Properties can be simply stored within one map.\\
+
+Polymorphism is further employed within the Observer pattern. A list of WageObserver objects are stored, allowing us to store any class that extends the interface. This results in loose coupling between the subject and the observers, since all the subject needs to know is that a WageObserver implements the interface and nothing more. A by-product of this loose coupling is increased testability. No changes are required to further extend the system to add new observer types, enhancing the systems extensibility.
 
 %-------------------------------------------------------------------------------
 
