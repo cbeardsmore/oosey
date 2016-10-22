@@ -56,9 +56,11 @@ public class EventController
         // Get last event in the list
         int year = 0;
         Event lastEvent = null;
-        if ( eventList.size() != 0 )
+        int size = eventList.size();
+
+        if ( size != 0 )
         {
-            lastEvent = eventList.get( eventList.size() - 1 );
+            lastEvent = eventList.get( size - 1 );
             year = lastEvent.getYear();
         }
         // Return the year of this event
@@ -72,11 +74,11 @@ public class EventController
 
     public void performEvents( Controller control, int year )
     {
+        // For each plan for this year, call run
+        // Inefficient, could user Iterators instead to maintain state
         for ( Event next : eventList )
-        {
             if ( next.getYear() == year )
                 next.run( control );
-        }
     }
 
 //---------------------------------------------------------------------------

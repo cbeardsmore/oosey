@@ -15,7 +15,7 @@ public abstract class Event
 {
     // All events increase/decrease the given field by 5%
     public static final double VALUE_CHANGE = 0.05;
-    public static final int DEFAULT_YEAR = -1;
+    public static final int DEFAULT_YEAR = 0;
 
     //CLASSFIELDS
     private int year;
@@ -79,6 +79,6 @@ public abstract class Event
             state += "AFFECTED: " + affected.getName() + "\n";
         return state;
     }
-    
+
 //---------------------------------------------------------------------------
 }

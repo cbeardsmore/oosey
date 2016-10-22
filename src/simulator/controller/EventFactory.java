@@ -12,6 +12,11 @@ import simulator.model.event.*;
 
 public class EventFactory
 {
+    // CONSTANTS
+    public static final char REVENUE = 'R';
+    public static final char VALUE = 'V';
+    public static final char WAGE = 'W';
+
 //---------------------------------------------------------------------------
     //DEFAULT CONSTRUCTOR
 
@@ -26,11 +31,11 @@ public class EventFactory
     public Event createEvent( char type )
     {
         Event newEvent = null;
-        if ( type == 'R' )
+        if ( type == REVENUE )
             newEvent = new RevenueEvent();
-        else if ( type == 'V' )
+        else if ( type == VALUE )
             newEvent = new ValueEvent();
-        else if ( type == 'W' )
+        else if ( type == WAGE )
             newEvent = new WageEvent();
         return newEvent;
     }

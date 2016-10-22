@@ -10,10 +10,14 @@ package simulator.model.property;
 
 public interface WageObserver
 {
-//---------------------------------------------------------------------------
-    //Method to be implemented in all Observers implementing this interface
+    //CONSTANTS
+    public static final double WAGE_CHANGE = 0.05;
 
-    public void updateWage(boolean isIncrease);
+//---------------------------------------------------------------------------
+    //Methods to be implemented in all Observers implementing this interface
+
+    public void increaseWages();
+    public void decreaseWages();
 
 //---------------------------------------------------------------------------
 }

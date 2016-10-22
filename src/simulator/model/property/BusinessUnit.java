@@ -8,14 +8,13 @@
 ***************************************************************************/
 package simulator.model.property;
 
+import simulator.model.event.*;
+
 public class BusinessUnit extends Property implements WageObserver
 {
     //CLASSFIELDS
     private double revenue;
     private double wages;
-
-    //CONSTANTS
-    public static final double WAGE_CHANGE = 0.05;
 
 //---------------------------------------------------------------------------
     //DEFAULT CONSTRUCTOR
@@ -67,16 +66,21 @@ public class BusinessUnit extends Property implements WageObserver
     }
 
 //---------------------------------------------------------------------------
-    //NAME: updateWage()
-    //IMPORT: isIncrease (boolean)
-    //PURPOSE: Update wages based on an occuring wage event
+    //NAME: increaseWages()
+    //PURPOSE: Increase wages based on an occuring wage event
 
-    public void updateWage( boolean isIncrease )
+    public void increaseWages()
     {
-        if ( isIncrease )
-            wages *= ( 1.0 + WAGE_CHANGE );
-        else
-            wages *= ( 1.0 - WAGE_CHANGE );
+        wages *= ( 1.0 + WAGE_CHANGE );
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: decreaseWages()
+    //PURPOSE: Increase wages based on an occuring wage event
+
+    public void decreaseWages()
+    {
+        wages *= ( 1.0 - WAGE_CHANGE );
     }
 
 //---------------------------------------------------------------------------
@@ -93,5 +97,5 @@ public class BusinessUnit extends Property implements WageObserver
         return state;
     }
 
-//---------------------------------------------------------------------------    
+//---------------------------------------------------------------------------
 }

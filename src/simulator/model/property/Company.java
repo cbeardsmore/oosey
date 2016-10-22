@@ -22,8 +22,6 @@ public class Company extends Property
 
     public Company( BankAccount inBank )
     {
-        // Hard to avoid the dependency injection here
-        // Makes sense to initialise companys bank here, rather than import
         bank = inBank;
         ownedProps = new HashMap<String,Property>();
     }

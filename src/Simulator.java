@@ -76,14 +76,23 @@ public class Simulator
             view.errorMessage("INVALID YEARS GIVEN: " + e.getMessage() + "\n");
         }
         // Thrown by file readers if files format is invalid
-        catch( IllegalArgumentException e )
+        catch( FileFormatException e )
         {
             view.errorMessage("INVALID FILE FORMAT: " + e.getMessage() + "\n");
         }
         // Thrown by file readers if file IO fails
-        catch( IOException e )
+        catch( FileReadingException e )
         {
             view.errorMessage("FILE READING ERROR: " + e.getMessage() + "\n");
+        }
+        catch( IllegalArgumentException e )
+        {
+            view.errorMessage("FILE LOGIC ERROR: " + e.getMessage() + "\n");;
+        }
+        // Failsafe so user never has to see a Stack Trace
+        catch( Exception e )
+        {
+            view.errorMessage("UNEXEPCTED ERROR: " + e.getMessage() + "\n");
         }
 
         // Exception must have occurred

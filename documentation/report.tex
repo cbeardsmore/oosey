@@ -77,7 +77,7 @@ Throughout the Company Simulator, polymorphism is extensively utilized to both g
 
 %-------------------------------------------------------------------------------
 
-\section*{Design Pattern Implemented}
+\section*{Design Patterns Implemented}
 
 \subsubsection*{Factory Method Pattern}
 
@@ -85,11 +85,11 @@ A Factory was employed to encapsulate object instantiation for both the Event an
 
 \subsubsection*{Dependency Injection Pattern}
 
-The Dependency Injection pattern worked to remove all hard-coded dependencies, with the primary injector code being located in the main method.
+The Dependency Injection pattern worked to remove all hard-coded dependencies, with the primary injector code being located in the main method with al calls to \textit{new} located in either the main or the two Factory classes.
 
 \subsubsection*{Model View Controller Pattern}
 
-The MVC pattern was utilized for the overall layout of the system, due to its flexibility and its strong separation of concerns.
+The MVC pattern was utilized for the overall architectural design of the system, due to its flexibility and its strong separation of concerns.
 
 \subsubsection*{Observer Pattern}
 
@@ -97,11 +97,12 @@ An observer was set up for WageEvents, allowing all relevant Property's to be up
 
 \subsubsection*{Composite Pattern}
 
-company owns other companies, profit tree structure
+The tree of Properties form a version of the Composite pattern, where each Company owns zero or more other Properties. These properties can either be leaf nodes (BusinessUnit) or further composite nodes (Company).
+
 
 \subsubsection*{Template Method Pattern}
 
-The Template Method pattern was used in the reading of the files. The common code for opening and closing files was kept in the superclass, with the subclasses implementing the protected abstract processLine() method.
+The Template Method pattern was used in the reading of files. The common code for opening and closing files was kept in the superclass, with the subclasses implementing the protected abstract processLine() method.
 
 \subsubsection*{Strategy Pattern}
 
@@ -109,7 +110,7 @@ The run() method located in both Event and Plan subclasses is a form of the stra
 
 \subsubsection*{Miscellaneous Patterns}
 
-The use of for each loops throughout the system illustrate a form of the simplistic Iterator pattern. The objects used for file reading utilize the Decorator pattern, however these classes were used from the Java API.
+The use of for each loops throughout the system illustrate a form of the simplistic but ever useful Iterator pattern. While the Decorator pattern was not used in any of the designed classes, the objects used for file reading from the Java API utilize the Decorator pattern.
 
 %-------------------------------------------------------------------------------
 

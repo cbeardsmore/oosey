@@ -12,6 +12,7 @@ import simulator.controller.*;
 
 public class WageEvent extends Event
 {
+
 //---------------------------------------------------------------------------
     //DEFAULT CONSTRUCTOR
 
@@ -38,7 +39,11 @@ public class WageEvent extends Event
     public void run( Controller control )
     {
         PropertyController propCon = control.getPropCon();
-        propCon.notifyWages( super.isIncrease() );
+        boolean isIncrease = super.isIncrease();
+        if ( isIncrease )
+            propCon.notifyWageInc();
+        else
+            propCon.notifyWageDec();
     }
 
 //---------------------------------------------------------------------------

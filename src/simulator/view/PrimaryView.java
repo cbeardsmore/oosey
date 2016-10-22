@@ -43,8 +43,11 @@ public class PrimaryView
             {
                 // Downcast to allow for getBank() to be called
                 Company nextCompany = (Company)next;
+                double nextValue = nextCompany.getBank().getValue();
                 System.out.println( "COMPANY: " + nextCompany.getName() );
-                System.out.println( "BALANCE: " + nextCompany.getBank().getValue() + "\n" );
+                // Two decimal places for money
+                String balString = String.format("%.02f", nextValue);
+                System.out.println( "BALANCE: " + balString + "\n" );
             }
         }
 

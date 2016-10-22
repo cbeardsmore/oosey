@@ -25,16 +25,21 @@ public class PropertyReader extends ReaderTemplate
     //IMPORT: fields (String[])
     //PURPOSE: Parse fields of a given line, creating objects as required
 
-    protected void processLine(String[] fields)
+    protected void processLine(String[] fields) throws FileFormatException
     {
+        PropertyController propCon = control.getPropCon();
         Property newProp = null;
         Property owner;
         int revenue;
         int wages;
 
+        // Check length of fields
+        if ( fields.length != 6 )
+            throw new FileFormatException("Property File Data Missing");
+
         // Check that type is correct length
         if ( fields[1].length() != 1 )
-            throw new IllegalArgumentException("Property Type Invalid");
+            throw new FileFormatException("Property Type Invalid");
 
         // If C, create new Company
         if ( fields[1].charAt(0) == 'C' )
@@ -51,11 +56,11 @@ public class PropertyReader extends ReaderTemplate
             }
             catch ( NumberFormatException e )
             {
-                throw new IllegalArgumentException("Business Revenue/Wages Invalid");
+                throw new FileFormatException("Business Revenue/Wages Invalid");
             }
         }
         else
-            throw new IllegalArgumentException("Property Type Invalid");
+            throw new FileFormatException("Property Type Invalid");
 
         // Set name and value
         newProp.setName( fields[0] );
@@ -65,26 +70,30 @@ public class PropertyReader extends ReaderTemplate
         }
         catch ( NumberFormatException e )
         {
-            throw new IllegalArgumentException("Value in Plan File Invalid");
+            throw new FileFormatException("Value in Plan File Invalid");
         }
 
 
         // Check if owner exists from map, set to null if no owner
         if ( !fields[2].equals("") )
         {
-            owner = control.getPropCon().getProperty( fields[2] );
+            owner = propCon.getProperty( fields[2] );
             if ( owner == null )
-                throw new IllegalArgumentException("Property Owner Invalid");
+                throw new FileFormatException("Property Owner Invalid");
             if ( !(owner instanceof Company) )
-                throw new IllegalArgumentException("Property Owner must be a Company");
+                throw new FileFormatException("Property Owner must be a Company");
 
             // Set owner field AND update map of the owner
             newProp.setOwner( (Company)owner );
             ((Company)owner).addProperty( fields[0], newProp );
         }
 
+        // Check it doesn't already exist in the map
+        if ( propCon.getProperty(fields[0]) != null )
+            throw new FileFormatException("Property duplicate detected");
+
         // Add the new property into the controller
-        control.getPropCon().setProperty( fields[0], newProp );
+        propCon.setProperty( fields[0], newProp );
     }
 
 //---------------------------------------------------------------------------

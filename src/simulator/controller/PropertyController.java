@@ -43,6 +43,7 @@ public class PropertyController
 
     public void performProfit()
     {
+        // Iterate across entire Map
         for ( Map.Entry<String,Property> entry : propMap.entrySet() )
         {
             Property next = entry.getValue();
@@ -59,9 +60,14 @@ public class PropertyController
 
     public void setProperty(String name, Property prop)
     {
+        // Add property to the map
         propMap.put( name, prop );
+
+        // If its the first Company, make it the primary company
         if ( ( primary == null ) && ( prop instanceof Company ) )
             primary = (Company)prop;
+
+        // If its an Observer, add it to the observer list
         if ( prop instanceof WageObserver )
             attach( (WageObserver)prop );
     }
@@ -107,13 +113,23 @@ public class PropertyController
     }
 
 //---------------------------------------------------------------------------
-    //NAME: notifyWages()
+    //NAME: notifyWageInc()
     //PURPOSE: Call update on all observers in observer list
 
-    public void notifyWages( boolean isIncrease )
+    public void notifyWageInc()
     {
         for (WageObserver observer : observers)
-            observer.updateWage( isIncrease );
+            observer.increaseWages();
+    }
+
+//---------------------------------------------------------------------------
+    //NAME: notifyWageDec()
+    //PURPOSE: Call update on all observers in observer list
+
+    public void notifyWageDec()
+    {
+        for (WageObserver observer : observers)
+            observer.decreaseWages();
     }
 
 //---------------------------------------------------------------------------

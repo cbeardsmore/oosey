@@ -12,11 +12,15 @@ import simulator.model.plan.*;
 
 public class PlanFactory
 {
+    // CONSTANTS
+    public static final char BUY = 'B';
+    public static final char SELL = 'S';
+
 //---------------------------------------------------------------------------
     //DEFAULT CONSTRUCTOR
 
     public PlanFactory() {}
-        
+
 //---------------------------------------------------------------------------
     //NAME: createPlan()
     //IMPORT: type (char)
@@ -26,9 +30,9 @@ public class PlanFactory
     public Plan createPlan( char type )
     {
         Plan newPlan = null;
-        if ( type == 'B' )
+        if ( type == BUY )
             newPlan = new BuyPlan();
-        else if ( type == 'S' )
+        else if ( type == SELL )
             newPlan = new SellPlan();
         return newPlan;
     }

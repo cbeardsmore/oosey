@@ -56,9 +56,11 @@ public class PlanController
         // Get last plan in the list
         int year = 0;
         Plan lastPlan = null;
-        if ( planList.size() != 0 )
+        int size = planList.size();
+
+        if ( size != 0 )
         {
-            lastPlan = planList.get( planList.size() - 1 );
+            lastPlan = planList.get( size - 1 );
             year = lastPlan.getYear();
         }
         // Return the year of this plan
@@ -72,11 +74,11 @@ public class PlanController
 
     public void performPlans( Controller control, int year )
     {
+        // For each plan for this year, call run
+        // Inefficient, could user Iterators instead to maintain state
         for ( Plan next : planList )
-        {
             if ( next.getYear() == year )
                 next.run( control );
-        }
     }
 
 //---------------------------------------------------------------------------

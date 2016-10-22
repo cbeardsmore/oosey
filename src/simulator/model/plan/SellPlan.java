@@ -36,7 +36,7 @@ public class SellPlan extends Plan
 
     public void run( Controller control )
     {
-        // Get the seller and the actual property to buy
+        // Get the seller and the actual property to sell
         Property prop = super.getProp();
         Company primary = control.getPropCon().getPrimary();
 

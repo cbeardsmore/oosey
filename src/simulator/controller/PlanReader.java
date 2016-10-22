@@ -31,7 +31,7 @@ public class PlanReader extends ReaderTemplate
     //IMPORT: fields (String[])
     //PURPOSE: Parse fields of a given line, creating objects as required
 
-    protected void processLine(String[] fields) throws IllegalArgumentException
+    protected void processLine(String[] fields) throws FileFormatException
     {
         // Declare fields
         Plan newPlan = null;
@@ -41,7 +41,7 @@ public class PlanReader extends ReaderTemplate
 
         // Check length of fields
         if ( fields.length != PLAN_FIELDS )
-            throw new IllegalArgumentException("Plan File Data Missing");
+            throw new FileFormatException("Plan File Data Missing");
 
         // Parse year field and rethrow as less specific exception
         try
@@ -49,27 +49,27 @@ public class PlanReader extends ReaderTemplate
             year = Integer.parseInt( fields[0] );
             // Ensure event in chronilogical order
             if ( year < control.getPlanCon().currentPlanYear() )
-                throw new IllegalArgumentException("Events Not Chronological");
+                throw new FileFormatException("Plans Not Chronological");
         }
         catch ( NumberFormatException e )
         {
-            throw new IllegalArgumentException("Year in Plan file invalid");
+            throw new FileFormatException("Year in Plan file invalid");
         }
 
         // Get property from controller map, ensure it actually exists
         prop = control.getPropCon().getProperty( fields[2] );
         if ( prop == null )
-            throw new IllegalArgumentException("Property in Plan does not exist");
+            throw new FileFormatException("Property in Plan does not exist");
 
         // Check validity of transaction type
         type = fields[1].charAt(0);
         if ( fields[1].length() != 1 )
-            throw new IllegalArgumentException("Plan Transaction type invalid");
+            throw new FileFormatException("Plan Transaction type invalid");
 
         // Get factory to create Plan, ensure it created properly
         newPlan = factory.createPlan( type );
         if ( newPlan == null )
-            throw new IllegalArgumentException("Plan Transaction type invalid");
+            throw new FileFormatException("Plan Transaction type invalid");
 
         // Set fields of the default plan object
         newPlan.setYear( year );
