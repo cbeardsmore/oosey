@@ -75,6 +75,15 @@ Polymorphism is further employed within the Observer pattern. A list of WageObse
 
 %-------------------------------------------------------------------------------
 
+\section*{Testability}
+
+The heavy use of design patterns and polymorphism produces a system that is easily testable. The use of the Factory pattern allows us to instantiate both Events and Plans with testing in mind, simplifying the use of mock objects in this situation. Dependency injection further allows for increased testability, with mock objects able to be created in the main due to the low level of hard coded dependencies.\\
+
+Each model and controller has a relevant toString() method to allow for simple debugging of each objects state. This allowed for numerous test files - both valid and invalid - to be run to ensure the correct logic of the simulator. The clear and concise exception handling throughout the system further helps testability.
+
+%-------------------------------------------------------------------------------
+
+\break
 \section*{Design Patterns Implemented}
 
 \subsubsection*{Factory Method Pattern}
@@ -111,31 +120,20 @@ The use of for each loops throughout the system illustrate a form of the simplis
 
 %-------------------------------------------------------------------------------
 
-\section*{Testability}
-
-The heavy use of design patterns and polymorphism produces a system that is easily testable.
-
-\begin{itemize}
-	\item Test cases!! sample outputs to clear up order ambiguity
-	\item Factory  + Dependency Injection allow for easy mocking of objects, low coupling
-	\item Mad toStrings() and debug output methods
-	\item clear and consie exception handling
-	\item tested on heaps of invalid file types for all 3 input files
-\end{itemize}
-
-%-------------------------------------------------------------------------------
-
+\break
 \section*{Alternative Design Choices}
 
-Despite the design having a high level of testability and maintainability, there are alternative design choices that could have been employed. The main alternative choices are the use of Factories, the controller layouts and ...
+Despite the design having a high level of testability and maintainability, there are alternative design choices that could have been employed. The main alternative choices are the use of Factories, the controller layouts and additional classes for the multiple Event choices.
 
 \subsubsection*{Controllers}
-Currently, there is one primary controller and one controller for each major model set. Since the primary controller is passed around, there are numerous calls to get the sub controllers, resulting in breaking the Law of Demeter. Solving this would require extra methods in the primary controller and since the number of calls to getters was minimal, this was not a major concern.
+Currently, there is one primary controller and one controller for each major model set. Since the primary controller is passed around, there are numerous calls to get the sub controllers, resulting in breaking the Law of Demeter. Solving this would require extra methods in the primary controller and since the number of calls to getters was minimal, this was not a major concern. Another alternative was to keep one large controller to perform all the Property, Event and Plan actions. However, this set-up would void separation of concerns and result in a highly coupled controller class.
 
 \subsubsection*{Factories}
-Factories were employed for the instantiation of both Event and Plan objects, but not for Property objects. This is due to BusinessUnits having specific fields that are not relevant to a Property object. Thus, to set these fields, the returned Property from the Factory would need to be downcast to be a BusinessUnit. A Factory allows us to instantiate a Property object without knowing its specific type, yet having to downcast voids this principle. This could have been solved by passing the whole String to parse to the Factory, yet this seems to void separation of concerns, as it is the PropertyReader's role to parse the input file.
+Factories were employed for the instantiation of both Event and Plan objects, but not for Property objects. This is due to BusinessUnits having specific fields that are not relevant to a Property object. Thus, to set these fields, the returned Property from the Factory would need to be downcast to be a BusinessUnit. A Factory allows us to instantiate a Property object without knowing its specific type, yet having to downcast voids this principle. This could have been solved by passing the whole String to parse to the Factory, yet this seems to void separation of concerns, as it is the PropertyReader's role to parse the input file. A form of the Builder pattern could have been modified to work in this situation, yet it was more simplistic to simply instantiate Properties from a method within the PropertyReader class.
 
-\subsubsection*{???}
+\subsubsection*{Additional Event Classes}
+
+There are currently three Event subclasses, each having a boolean field representing whether the class is an increase or decrease Event. An alternative solution was to write six subclasses, one each for an increase or decrease Event. This results in double the amount of classes, with each class being identical other than one plus or minus operation. However, the extra classes would remove the additional control flag required in the current set-up. Weighing up both the pros and cons, for the scope of this project it makes sense to minimise the number of classes required.
 
 %-------------------------------------------------------------------------------
 \end{document}   
