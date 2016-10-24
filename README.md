@@ -20,18 +20,32 @@ build.xml - Ant build file
 
 ##### Command Line Arguments
 
-asddadsdadsdsa
+The simulator takes 5 command line parameters, specified in the following order:
+
+```
+START YEAR
+END YEAR
+PROPERTY FILE
+EVENT FILE
+PLAN FILE
+```
 
 ##### Instructions to Run
 
-The make command will render 30 frames in the rendered folder and convert all the PNG images to a single GIF animation. To manually render the images in povray use:
+An ant build file is included for easy building of the entire system. To build the project:
 
 ```
-povray povray.ini
+ant
 ```
 
-To convert the rendered images into a single gif. This enables antialiasing and gives a framerate of 100/n frames per second. The convert program requires the *imagemagick* package to run.
+To clean the project:
 
 ```
-convert -antialias -delay N rendered/*.png rendered/ani.gif
+ant clean
+```
+
+To run the project
+
+```
+ant run
 ```
