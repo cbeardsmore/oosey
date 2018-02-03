@@ -1,9 +1,9 @@
-#oosey
+# oosey
 -
-######Object Oriented Software Engineering 200: Design Patterns
+###### Object Oriented Software Engineering 200: Design Patterns
 -
 
-#####Purpose
+##### Purpose
 
 A Company training simulator, used to demonstrate the implementation of various design patterns in a Java environment
 

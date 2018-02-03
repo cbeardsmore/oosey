@@ -1,8 +1,0 @@
-Name,Type,Owner,Worth,Revenue,Wages
-AmazingCorp,C,,1000000,,
-Cannington factory,B,AmazingCorp,5000000,100000,50000
-Tumbleweed Co,C,AmazingCorp,500000,,
-Giblet Inc,C,,7500000,,
-Kalgoorlie mine,B,Giblet Inc,12000000,800000,300000
-32 Bakers Street,B,AmazingCorp,500000,10000,8000
-99 Dread Pirate Lane,B,,400000,45000,55000

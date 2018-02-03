@@ -1,6 +1,0 @@
-Year,Buy/Sell,Property
-2017,S,Cannington factory
-2017,B,Kalgoorlie mine
-2018,S,32 Bakers Street
-2018,S,Tumbleweed Co
-2019,B,Giblet Inc
